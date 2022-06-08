@@ -1,0 +1,67 @@
+namespace: mattermost
+
+database:
+  defines: runnable
+  containers:
+    defines: containers
+    postgres:
+      image: postgres:12
+      environment:
+        - <- `POSTGRES_USER=${postgres-user}`
+        - <- `POSTGRES_PASSWORD=${postgres-password}`
+        - <- `POSTGRES_DB=${postgres-db}`
+      paths:
+        - <- `${db-path}:/var/lib/postgresql/data`
+      ports:
+        - 5432
+  variables:
+    defines: variables
+    db-path:
+      type: string
+      value: <- `${monk-volume-path}/mattermost-database`
+  checks:
+    defines: checks
+    readyness:
+      code: true
+      period: 15
+      initialDelay: 10
+
+mattermost:
+  defines: runnable
+  containers:
+    defines: containers
+    mattermost:
+      image:  mattermost/${MATTERMOST_IMAGE}:${MATTERMOST_IMAGE_TAG}
+      environment:
+        - <- `TZ=${TZ}`
+        - <- `MM_SQLSETTINGS_DRIVERNAME=${MM_SQLSETTINGS_DRIVERNAME}`
+        - <- `MM_SQLSETTINGS_DATASOURCE=${MM_SQLSETTINGS_DATASOURCE}`
+        - <- `MM_BLEVESETTINGS_INDEXDIR=${MM_BLEVESETTINGS_INDEXDIR}`
+        - <- `MM_SERVICESETTINGS_SITEURL=${MM_SERVICESETTINGS_SITEURL}`
+      paths:
+        - <- `${MATTERMOST_CONFIG_PATH}:/mattermost/config`
+        - <- `${MATTERMOST_DATA_PATH}:/mattermost/data`
+        - <- `${MATTERMOST_LOGS_PATH}:/mattermost/logs`
+        - <- `${MATTERMOST_PLUGINS_PATH}:/mattermost/plugins`
+        - <- `${MATTERMOST_CLIENT_PLUGINS_PATH}:/mattermost/client/plugins`
+        - <- `${MATTERMOST_BLEVE_INDEXES_PATH}:/mattermost/bleve-indexes`                                        
+      ports:
+        - 80
+        - 443
+    depends:
+      wait-for:
+        runnables:
+          - ./database
+        timeout: 30
+  variables:
+    defines: variables
+    db-host:
+      type: string
+      value: <- get-hostname("mattermost/database", "postgres")
+    MM_SQLSETTINGS_DRIVERNAME:
+      type: string
+      value: postgres           
+    MM_SQLSETTINGS_DATASOURCE:
+      type: string
+      value: <- `postgres://${postgres-user}:${postgres-password}@postgres:5432/${postgres-db}?sslmode=disable&connect_timeout=10`
+

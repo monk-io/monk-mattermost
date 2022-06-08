@@ -1,0 +1,45 @@
+namespace: mattermost
+
+stack:
+  defines: process-group
+  runnable-list:
+    - mattermost/database
+    - mattermost/mattermost
+  variables:
+    defines: variables
+    postgres-user:
+      type: string
+      value: "mmuser"
+    postgres-password:
+      type: string
+      value: "mmuser_password"
+    postgres-db:
+      type: string
+      value: "mattermost"
+    MATTERMOST_CONFIG_PATH:
+      type: string
+      value: "./volumes/app/mattermost/config"
+    MATTERMOST_DATA_PATH:
+      type: string
+      value: "./volumes/app/mattermost/data"
+    MATTERMOST_LOGS_PATH:
+      type: string
+      value: "./volumes/app/mattermost/logs"
+    MATTERMOST_PLUGINS_PATH:
+      type: string
+      value: "./volumes/app/mattermost/plugins"
+    MATTERMOST_CLIENT_PLUGINS_PATH:
+      type: string
+      value: "./volumes/app/mattermost/client/plugins"
+    MATTERMOST_BLEVE_INDEXES_PATH:
+      type: string
+      value: "./volumes/app/mattermost/bleve-indexes"
+    TZ:
+      type: string
+      value: "UTC"
+    MM_BLEVESETTINGS_INDEXDIR:
+      type: string
+      value: "/mattermost/bleve-indexes"
+    MM_SERVICESETTINGS_SITEURL:
+      type: string
+      value: "https://mm.example.com"      
