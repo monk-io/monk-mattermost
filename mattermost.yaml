@@ -1,3 +1,4 @@
+
 namespace: mattermost
 
 database:
@@ -31,7 +32,7 @@ mattermost:
   containers:
     defines: containers
     mattermost:
-      image:  mattermost/${MATTERMOST_IMAGE}:${MATTERMOST_IMAGE_TAG}
+      image:  <- `mattermost/${MATTERMOST_IMAGE}:${MATTERMOST_IMAGE_TAG}`
       environment:
         - <- `TZ=${TZ}`
         - <- `MM_SQLSETTINGS_DRIVERNAME=${MM_SQLSETTINGS_DRIVERNAME}`

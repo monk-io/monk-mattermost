@@ -42,4 +42,10 @@ stack:
       value: "/mattermost/bleve-indexes"
     MM_SERVICESETTINGS_SITEURL:
       type: string
-      value: "https://mm.example.com"      
+      value: "https://mm.example.com"
+    MATTERMOST_IMAGE:
+      type: string
+      value: "mattermost-enterprise-edition"
+    MATTERMOST_IMAGE_TAG:
+      type: string
+      value: "6.3"            

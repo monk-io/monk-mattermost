@@ -1,0 +1,2 @@
+REPO monk-mattermost
+LOAD mattermost.yaml stack.yaml
