@@ -58,9 +58,10 @@ mattermost:
       ports:
         - 8065:8065
     depends:
+      defines: depends
       wait-for:
         runnables:
-          - ./database
+          - mattermost/database
         timeout: 30
   variables:
     defines: variables
