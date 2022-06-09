@@ -43,10 +43,11 @@ mattermost:
       image:  <- `mattermost/${MATTERMOST_IMAGE}`
       image-tag: <- `${MATTERMOST_IMAGE_TAG}`
       environment:
-        - <- `MYSQL_ROOT_PASSWORD=${mysql-root-password}`
-        - <- `MYSQL_USER=${wordpress-db-user}`
-        - <- `MYSQL_PASSWORD=${wordpress-db-password}`
-        - <- `MYSQL_DATABASE=${wordpress-db-name}`      
+        - <- `TZ=${TZ}`
+        - <- `MM_SQLSETTINGS_DRIVERNAME=${MM_SQLSETTINGS_DRIVERNAME}`
+        - <- `MM_SQLSETTINGS_DATASOURCE=${MM_SQLSETTINGS_DATASOURCE}`
+        - <- `MM_BLEVESETTINGS_INDEXDIR=${MM_BLEVESETTINGS_INDEXDIR}`
+        - <- `MM_SERVICESETTINGS_SITEURL=${MM_SERVICESETTINGS_SITEURL}`
       paths:
         - <- `${MATTERMOST_CONFIG_PATH}:/mattermost/config`
         - <- `${MATTERMOST_DATA_PATH}:/mattermost/data`
