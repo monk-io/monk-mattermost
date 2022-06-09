@@ -56,11 +56,11 @@ mattermost:
         - <- `${MATTERMOST_BLEVE_INDEXES_PATH}:/mattermost/bleve-indexes`                                        
       ports:
         - 8065:8065
-    depends:
-      wait-for:
-        runnables:
-          - ./database
-        timeout: 30
+  depends:
+    wait-for:
+      runnables:
+        - mattermost/database
+      timeout: 30
   variables:
     defines: variables
     postgres-user:
