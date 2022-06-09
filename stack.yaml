@@ -43,6 +43,9 @@ stack:
     TZ:
       type: string
       value: "UTC"
+    MM_SQLSETTINGS_DRIVERNAME:
+      type: string
+      value: "postgres"         
     MM_BLEVESETTINGS_INDEXDIR:
       type: string
       value: "/mattermost/bleve-indexes"
