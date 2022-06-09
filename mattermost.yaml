@@ -20,6 +20,15 @@ database:
     db-path:
       type: string
       value: <- `${monk-volume-path}/mattermost-database`
+    postgres-user:
+      type: string
+      value: "mmuser"
+    postgres-password:
+      type: string
+      value: "mmuser_password"
+    postgres-db:
+      type: string
+      value: "mattermost"      
   checks:
     defines: checks
     readyness:
@@ -55,15 +64,6 @@ mattermost:
         timeout: 30
   variables:
     defines: variables
-    postgres-user:
-      type: string
-      value: "mmuser"
-    postgres-password:
-      type: string
-      value: "mmuser_password"
-    postgres-db:
-      type: string
-      value: "mattermost"
     MATTERMOST_CONFIG_PATH:
       type: string
       value: "./volumes/app/mattermost/config"
