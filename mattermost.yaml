@@ -47,8 +47,7 @@ mattermost:
         - <- `${MATTERMOST_CLIENT_PLUGINS_PATH}:/mattermost/client/plugins`
         - <- `${MATTERMOST_BLEVE_INDEXES_PATH}:/mattermost/bleve-indexes`                                        
       ports:
-        - 80
-        - 443
+        - 8065:8065
     depends:
       wait-for:
         runnables:
@@ -64,5 +63,5 @@ mattermost:
       value: postgres           
     MM_SQLSETTINGS_DATASOURCE:
       type: string
-      value: <- `postgres://${postgres-user}:${postgres-password}@postgres:5432/${postgres-db}?sslmode=disable&connect_timeout=10`
+      value: <- `postgres://${postgres-user}:${postgres-password}@${db-host}:5432/${postgres-db}?sslmode=disable&connect_timeout=10`
 

@@ -2,6 +2,12 @@ namespace: mattermost
 
 stack:
   defines: process-group
+  balancers:
+    app-balancer:
+      type: http
+      port: 8065
+      instances:
+          - mattermost/mattermost
   runnable-list:
     - mattermost/database
     - mattermost/mattermost
