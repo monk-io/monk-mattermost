@@ -13,6 +13,29 @@ stack:
     - mattermost/mattermost
   variables:
     defines: variables
+    TZ:
+      env: TZ
+      type: string
+      value: "UTC"
+    MM_SQLSETTINGS_DRIVERNAME:
+      env: MM_SQLSETTINGS_DRIVERNAME
+      type: string
+      value: "postgres"
+    MM_BLEVESETTINGS_INDEXDIR:
+      env: MM_BLEVESETTINGS_INDEXDIR
+      type: string
+      value: "/mattermost/bleve-indexes"
+    MM_SERVICESETTINGS_SITEURL:
+      env: MM_SERVICESETTINGS_SITEURL
+      type: string
+      value: "https://mm.example.com"
+    MATTERMOST_IMAGE:
+      type: string
+      value: "mattermost-enterprise-edition"
+    MM_SQLSETTINGS_DATASOURCE:
+      env: MM_SQLSETTINGS_DATASOURCE
+      type: string
+      value: <- `postgres://${postgres-user}:${postgres-password}@${db-host}:5432/${postgres-db}?sslmode=disable&connect_timeout=10`
     postgres-user:
       type: string
       value: "mmuser"
@@ -40,21 +63,9 @@ stack:
     MATTERMOST_BLEVE_INDEXES_PATH:
       type: string
       value: "./volumes/app/mattermost/bleve-indexes"
-    TZ:
-      type: string
-      value: "UTC"
-    MM_SQLSETTINGS_DRIVERNAME:
-      type: string
-      value: "postgres"         
-    MM_BLEVESETTINGS_INDEXDIR:
-      type: string
-      value: "/mattermost/bleve-indexes"
-    MM_SERVICESETTINGS_SITEURL:
-      type: string
-      value: "https://mm.example.com"
-    MATTERMOST_IMAGE:
-      type: string
-      value: "mattermost-enterprise-edition"
     MATTERMOST_IMAGE_TAG:
       type: string
-      value: "6.3"            
+      value: "6.3"
+    db-host:
+      type: string
+      value: <- get-hostname("mattermost/database", "postgres")           
