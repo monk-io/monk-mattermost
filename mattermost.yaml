@@ -40,7 +40,7 @@ mattermost:
   containers:
     defines: containers
     mattermost:
-      image:  <- `mattermost/${MATTERMOST_IMAGE}`
+      image:  mattermost/mattermost-enterprise-edition
       image-tag: <- `${MATTERMOST_IMAGE_TAG}`
       environment:
         - <- `TZ=${TZ}`
@@ -80,9 +80,6 @@ mattermost:
       env: MM_SERVICESETTINGS_SITEURL
       type: string
       value: "https://mm.example.com"
-    MATTERMOST_IMAGE:
-      type: string
-      value: "mattermost-enterprise-edition"
     MM_SQLSETTINGS_DATASOURCE:
       env: MM_SQLSETTINGS_DATASOURCE
       type: string

@@ -29,9 +29,6 @@ stack:
       env: MM_SERVICESETTINGS_SITEURL
       type: string
       value: "https://mm.example.com"
-    MATTERMOST_IMAGE:
-      type: string
-      value: "mattermost-enterprise-edition"
     MM_SQLSETTINGS_DATASOURCE:
       env: MM_SQLSETTINGS_DATASOURCE
       type: string
