@@ -13,6 +13,9 @@ stack:
     - mattermost/mattermost
   variables:
     defines: variables
+    db-path:
+      type: string
+      value: "./volumes/db/var/lib/postgresql/data"    
     TZ:
       env: TZ
       type: string
@@ -42,6 +45,9 @@ stack:
     postgres-db:
       type: string
       value: "mattermost"
+    volume-data:
+      type: string
+      value: "./volumes/app/"    
     MATTERMOST_CONFIG_PATH:
       type: string
       value: "./volumes/app/mattermost/config"

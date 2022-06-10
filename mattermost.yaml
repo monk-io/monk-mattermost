@@ -14,7 +14,7 @@ database:
     defines: variables
     db-path:
       type: string
-      value: <- `${monk-volume-path}/mattermost-database`
+      value: "./volumes/db/var/lib/postgresql/data"
     postgres-user:
       type: string
       value: "mmuser"
@@ -33,6 +33,11 @@ database:
 
 mattermost:
   defines: runnable
+  volumes:
+    important-data:
+      size: 30
+      kind: SSD
+      path: <- $volume-data  
   containers:
     defines: containers
     mattermost:
@@ -54,6 +59,9 @@ mattermost:
       timeout: 30
   variables:
     defines: variables
+    volume-data:
+      type: string
+      value: "./volumes/app/"      
     TZ:
       env: TZ
       type: string
