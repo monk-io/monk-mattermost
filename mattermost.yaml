@@ -2,6 +2,11 @@ namespace: mattermost
 
 database:
   defines: runnable
+  volumes:
+    important-data:
+      size: 10
+      kind: SSD
+      path: <- `$db-path`  
   containers:
     defines: containers
     postgres:
@@ -35,9 +40,9 @@ mattermost:
   defines: runnable
   volumes:
     important-data:
-      size: 30
+      size: 10
       kind: SSD
-      path: <- $volume-data  
+      path: <- `$volume-data`
   containers:
     defines: containers
     mattermost:
