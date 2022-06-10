@@ -15,7 +15,7 @@ stack:
     defines: variables
     db-path:
       type: string
-      value: "./volumes/db/var/lib/postgresql/data"    
+      value: <- `${monk-volume-path}/postgresql/data`
     TZ:
       env: TZ
       type: string
@@ -47,25 +47,25 @@ stack:
       value: "mattermost"
     volume-data:
       type: string
-      value: "./volumes/app/"    
+      value: "/volumes/app/"    
     MATTERMOST_CONFIG_PATH:
       type: string
-      value: "./volumes/app/mattermost/config"
+      value: "/volumes/app/mattermost/config"
     MATTERMOST_DATA_PATH:
       type: string
-      value: "./volumes/app/mattermost/data"
+      value: "/volumes/app/mattermost/data"
     MATTERMOST_LOGS_PATH:
       type: string
-      value: "./volumes/app/mattermost/logs"
+      value: "/volumes/app/mattermost/logs"
     MATTERMOST_PLUGINS_PATH:
       type: string
-      value: "./volumes/app/mattermost/plugins"
+      value: "/volumes/app/mattermost/plugins"
     MATTERMOST_CLIENT_PLUGINS_PATH:
       type: string
-      value: "./volumes/app/mattermost/client/plugins"
+      value: "/volumes/app/mattermost/client/plugins"
     MATTERMOST_BLEVE_INDEXES_PATH:
       type: string
-      value: "./volumes/app/mattermost/bleve-indexes"
+      value: "/volumes/app/mattermost/bleve-indexes"
     MATTERMOST_IMAGE_TAG:
       type: string
       value: "6.3"

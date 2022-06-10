@@ -6,7 +6,7 @@ database:
     important-data:
       size: 10
       kind: SSD
-      path: <- `$db-path`  
+      path: <- $db-path
   containers:
     defines: containers
     postgres:
@@ -19,7 +19,7 @@ database:
     defines: variables
     db-path:
       type: string
-      value: "./volumes/db/var/lib/postgresql/data"
+      value: <- `${monk-volume-path}/postgresql/data`
     postgres-user:
       type: string
       value: "mmuser"
@@ -42,7 +42,7 @@ mattermost:
     important-data:
       size: 10
       kind: SSD
-      path: <- `$volume-data`
+      path: <- $volume-data
   containers:
     defines: containers
     mattermost:
