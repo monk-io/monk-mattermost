@@ -6,10 +6,6 @@ database:
     defines: containers
     postgres:
       image: postgres:12
-      environment:
-        - <- `POSTGRES_USER=${postgres-user}`
-        - <- `POSTGRES_PASSWORD=${postgres-password}`
-        - <- `POSTGRES_DB=${postgres-db}`
       paths:
         - <- `${db-path}:/var/lib/postgresql/data`
       ports:
@@ -42,12 +38,6 @@ mattermost:
     mattermost:
       image:  mattermost/mattermost-enterprise-edition
       image-tag: <- `${MATTERMOST_IMAGE_TAG}`
-      environment:
-        - <- `TZ=${TZ}`
-        - <- `MM_SQLSETTINGS_DRIVERNAME=${MM_SQLSETTINGS_DRIVERNAME}`
-        - <- `MM_SQLSETTINGS_DATASOURCE=${MM_SQLSETTINGS_DATASOURCE}`
-        - <- `MM_BLEVESETTINGS_INDEXDIR=${MM_BLEVESETTINGS_INDEXDIR}`
-        - <- `MM_SERVICESETTINGS_SITEURL=${MM_SERVICESETTINGS_SITEURL}`
       paths:
         - <- `${MATTERMOST_CONFIG_PATH}:/mattermost/config`
         - <- `${MATTERMOST_DATA_PATH}:/mattermost/data`
