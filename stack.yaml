@@ -5,7 +5,7 @@ stack:
   balancers:
     app-balancer:
       type: http
-      port: 8080
+      port: 80
       instances:
           - mattermost/nginx
   runnable-list:
