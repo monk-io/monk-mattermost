@@ -1,2 +1,2 @@
 REPO monk-mattermost
-LOAD mattermost.yaml stack.yaml
+LOAD mattermost-inherits.yaml stack.yaml
