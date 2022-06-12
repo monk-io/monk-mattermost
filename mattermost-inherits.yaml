@@ -1,0 +1,111 @@
+namespace: mattermost
+
+database:
+  defines: runnable
+  inherits: postgres/12
+  variables:
+    db-user:
+      value: mmuser
+    db-password:
+      value: mmuser_password
+    db-name:
+      value: mattermost
+
+nginx:
+  defines: runnable
+  inherits: nginx/latest
+  variables:
+    listen-port:
+      value: 8080
+    proxy-target-host:
+      value: <- get-hostname("mattermost/mattermost", "mattermost")
+    proxy-target-port:
+      value: 8065
+    server-name:
+      value: www.example.com
+
+
+mattermost:
+  defines: runnable
+  volumes:
+    important-data:
+      size: 10
+      kind: SSD
+      path: <- `${volume-data}`
+  containers:
+    defines: containers
+    mattermost:
+      image:  mattermost/mattermost-enterprise-edition
+      image-tag: latest
+      paths:
+        - <- `${volume-data}/${MATTERMOST_CONFIG_PATH}:/mattermost/config`
+        - <- `${volume-data}/${MATTERMOST_DATA_PATH}:/mattermost/data`
+        - <- `${volume-data}/${MATTERMOST_LOGS_PATH}:/mattermost/logs`
+        - <- `${volume-data}/${MATTERMOST_PLUGINS_PATH}:/mattermost/plugins`
+        - <- `${volume-data}/${MATTERMOST_CLIENT_PLUGINS_PATH}:/mattermost/client/plugins`
+        - <- `${volume-data}/${MATTERMOST_BLEVE_INDEXES_PATH}:/mattermost/bleve-indexes`                                        
+      ports:
+        - 8065
+  depends:
+    wait-for:
+      runnables:
+        - mattermost/database
+      timeout: 30
+  variables:
+    defines: variables     
+    TZ:
+      env: TZ
+      type: string
+      value: "UTC"
+    MM_SQLSETTINGS_DRIVERNAME:
+      env: MM_SQLSETTINGS_DRIVERNAME
+      type: string
+      value: "postgres"
+    MM_BLEVESETTINGS_INDEXDIR:
+      env: MM_BLEVESETTINGS_INDEXDIR
+      type: string
+      value: "/mattermost/bleve-indexes"
+    MM_SERVICESETTINGS_SITEURL:
+      env: MM_SERVICESETTINGS_SITEURL
+      type: string
+      value: "https://mm.example.com"
+    MM_SQLSETTINGS_DATASOURCE:
+      env: MM_SQLSETTINGS_DATASOURCE
+      type: string
+      value: <- `postgres://${db-user}:${db-password}@${db-host}:5432/${db-name}?sslmode=disable&connect_timeout=10`
+    db-user:
+      type: string
+      value: "mmuser"
+    db-password:
+      type: string
+      value: "mmuser_password"
+    db-name:
+      type: string
+      value: "mattermost"
+    volume-data:
+      type: string
+      value: "/volumes/app/"
+    MATTERMOST_CONFIG_PATH:
+      type: string
+      value: "/mattermost/config"
+    MATTERMOST_DATA_PATH:
+      type: string
+      value: "/mattermost/data"
+    MATTERMOST_LOGS_PATH:
+      type: string
+      value: "/mattermost/logs"
+    MATTERMOST_PLUGINS_PATH:
+      type: string
+      value: "/mattermost/plugins"
+    MATTERMOST_CLIENT_PLUGINS_PATH:
+      type: string
+      value: "/mattermost/client/plugins"
+    MATTERMOST_BLEVE_INDEXES_PATH:
+      type: string
+      value: "/mattermost/bleve-indexes"
+    MATTERMOST_IMAGE_TAG:
+      type: string
+      value: "6.3"
+    db-host:
+      type: string
+      value: <- get-hostname("mattermost/database", "postgres")

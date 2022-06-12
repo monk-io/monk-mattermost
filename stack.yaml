@@ -5,17 +5,33 @@ stack:
   balancers:
     app-balancer:
       type: http
-      port: 8065
+      port: 8080
       instances:
-          - mattermost/mattermost
+          - mattermost/nginx
   runnable-list:
     - mattermost/database
     - mattermost/mattermost
+    - mattermost/nginx    
   variables:
     defines: variables
-    db-path:
+    db-user:
       type: string
-      value: <- `${monk-volume-path}/postgresql/data`
+      value: "mmuser"
+    db-password:
+      type: string
+      value: "mmuser_password"   
+    db-name:
+      type: string
+      value: "mattermost"
+    listen-port:
+      type: int
+      value: 8080
+    proxy-target-port:
+      type: int
+      value: 8065
+    server-name:
+      type: string
+      value: "www.example.com"         
     TZ:
       env: TZ
       type: string
@@ -32,43 +48,27 @@ stack:
       env: MM_SERVICESETTINGS_SITEURL
       type: string
       value: "https://mm.example.com"
-    MM_SQLSETTINGS_DATASOURCE:
-      env: MM_SQLSETTINGS_DATASOURCE
-      type: string
-      value: <- `postgres://${postgres-user}:${postgres-password}@${db-host}:5432/${postgres-db}?sslmode=disable&connect_timeout=10`
-    postgres-user:
-      type: string
-      value: "mmuser"
-    postgres-password:
-      type: string
-      value: "mmuser_password"
-    postgres-db:
-      type: string
-      value: "mattermost"
     volume-data:
       type: string
       value: "/volumes/app/"    
     MATTERMOST_CONFIG_PATH:
       type: string
-      value: "/volumes/app/mattermost/config"
+      value: "/mattermost/config"
     MATTERMOST_DATA_PATH:
       type: string
-      value: "/volumes/app/mattermost/data"
+      value: "/mattermost/data"
     MATTERMOST_LOGS_PATH:
       type: string
-      value: "/volumes/app/mattermost/logs"
+      value: "/mattermost/logs"
     MATTERMOST_PLUGINS_PATH:
       type: string
-      value: "/volumes/app/mattermost/plugins"
+      value: "/mattermost/plugins"
     MATTERMOST_CLIENT_PLUGINS_PATH:
       type: string
-      value: "/volumes/app/mattermost/client/plugins"
+      value: "/mattermost/client/plugins"
     MATTERMOST_BLEVE_INDEXES_PATH:
       type: string
-      value: "/volumes/app/mattermost/bleve-indexes"
+      value: "/mattermost/bleve-indexes"
     MATTERMOST_IMAGE_TAG:
       type: string
       value: "6.3"
-    db-host:
-      type: string
-      value: <- get-hostname("mattermost/database", "postgres")           

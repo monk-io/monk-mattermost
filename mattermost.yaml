@@ -10,7 +10,8 @@ database:
   containers:
     defines: containers
     postgres:
-      image: postgres:12
+      image: postgres
+      image-tag: 12
       paths:
         - <- `${db-path}:/var/lib/postgresql/data`
       ports:
@@ -47,7 +48,7 @@ mattermost:
     defines: containers
     mattermost:
       image:  mattermost/mattermost-enterprise-edition
-      image-tag: <- `${MATTERMOST_IMAGE_TAG}`
+      image-tag: latest
       paths:
         - <- `${MATTERMOST_CONFIG_PATH}:/mattermost/config`
         - <- `${MATTERMOST_DATA_PATH}:/mattermost/data`
@@ -66,7 +67,7 @@ mattermost:
     defines: variables
     volume-data:
       type: string
-      value: "./volumes/app/"      
+      value: "/volumes/app/"      
     TZ:
       env: TZ
       type: string
