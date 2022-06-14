@@ -50,25 +50,25 @@ stack:
       value: "https://mm.example.com"
     volume-data:
       type: string
-      value: "/volumes/app/"    
+      value: "/volumes/app"    
     MATTERMOST_CONFIG_PATH:
       type: string
-      value: "/mattermost/config"
+      value: "mattermost/config"
     MATTERMOST_DATA_PATH:
       type: string
-      value: "/mattermost/data"
+      value: "mattermost/data"
     MATTERMOST_LOGS_PATH:
       type: string
-      value: "/mattermost/logs"
+      value: "mattermost/logs"
     MATTERMOST_PLUGINS_PATH:
       type: string
-      value: "/mattermost/plugins"
+      value: "mattermost/plugins"
     MATTERMOST_CLIENT_PLUGINS_PATH:
       type: string
-      value: "/mattermost/client/plugins"
+      value: "mattermost/client/plugins"
     MATTERMOST_BLEVE_INDEXES_PATH:
       type: string
-      value: "/mattermost/bleve-indexes"
+      value: "mattermost/bleve-indexes"
     MATTERMOST_IMAGE_TAG:
       type: string
       value: "6.3"
