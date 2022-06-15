@@ -27,23 +27,23 @@ nginx:
 
 mattermost:
   defines: runnable
-  volumes:
-    important-data:
-      size: 10
-      kind: SSD
-      path: <- `${volume-data}`
+  # volumes:
+  #   important-data:
+  #     size: 10
+  #     kind: SSD
+  #     path: <- `${volume-data}`
   containers:
     defines: containers
     mattermost:
       image:  mattermost/mattermost-enterprise-edition
       image-tag: latest
       paths:
-        - <- `${volume-data}/${MATTERMOST_CONFIG_PATH}:/mattermost/config`
-        - <- `${volume-data}/${MATTERMOST_DATA_PATH}:/mattermost/data`
-        - <- `${volume-data}/${MATTERMOST_LOGS_PATH}:/mattermost/logs`
-        - <- `${volume-data}/${MATTERMOST_PLUGINS_PATH}:/mattermost/plugins`
-        - <- `${volume-data}/${MATTERMOST_CLIENT_PLUGINS_PATH}:/mattermost/client/plugins`
-        - <- `${volume-data}/${MATTERMOST_BLEVE_INDEXES_PATH}:/mattermost/bleve-indexes`                                  
+        - <- `${monk-volume-path}/${MATTERMOST_CONFIG_PATH}:/mattermost/config`
+        - <- `${monk-volume-path}/${MATTERMOST_DATA_PATH}:/mattermost/data`
+        - <- `${monk-volume-path}/${MATTERMOST_LOGS_PATH}:/mattermost/logs`
+        - <- `${monk-volume-path}/${MATTERMOST_PLUGINS_PATH}:/mattermost/plugins`
+        - <- `${monk-volume-path}/${MATTERMOST_CLIENT_PLUGINS_PATH}:/mattermost/client/plugins`
+        - <- `${monk-volume-path}/${MATTERMOST_BLEVE_INDEXES_PATH}:/mattermost/bleve-indexes`                                  
       ports:
         - 8065
   depends:
