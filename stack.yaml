@@ -48,9 +48,6 @@ stack:
       env: MM_SERVICESETTINGS_SITEURL
       type: string
       value: "https://mm.example.com"
-    volume-data:
-      type: string
-      value: "/volumes/app"    
     MATTERMOST_CONFIG_PATH:
       type: string
       value: "mattermost/config"
