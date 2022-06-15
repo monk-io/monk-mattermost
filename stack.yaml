@@ -11,7 +11,7 @@ stack:
   runnable-list:
     - mattermost/database
     - mattermost/mattermost
-    - mattermost/nginx    
+    # - mattermost/nginx
   variables:
     defines: variables
     db-user:
