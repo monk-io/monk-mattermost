@@ -38,12 +38,12 @@ mattermost:
       image:  mattermost/mattermost-enterprise-edition
       image-tag: latest
       paths:
-        - <- `${moncc-volume-path}/${MATTERMOST_CONFIG_PATH}:/mattermost/config`
-        - <- `${moncc-volume-path}/${MATTERMOST_DATA_PATH}:/mattermost/data`
-        - <- `${moncc-volume-path}/${MATTERMOST_LOGS_PATH}:/mattermost/logs`
-        - <- `${moncc-volume-path}/${MATTERMOST_PLUGINS_PATH}:/mattermost/plugins`
-        - <- `${moncc-volume-path}/${MATTERMOST_CLIENT_PLUGINS_PATH}:/mattermost/client/plugins`
-        - <- `${moncc-volume-path}/${MATTERMOST_BLEVE_INDEXES_PATH}:/mattermost/bleve-indexes`                                  
+        - <- `${volume-data}/${MATTERMOST_CONFIG_PATH}:/mattermost/config`
+        - <- `${volume-data}/${MATTERMOST_DATA_PATH}:/mattermost/data`
+        - <- `${volume-data}/${MATTERMOST_LOGS_PATH}:/mattermost/logs`
+        - <- `${volume-data}/${MATTERMOST_PLUGINS_PATH}:/mattermost/plugins`
+        - <- `${volume-data}/${MATTERMOST_CLIENT_PLUGINS_PATH}:/mattermost/client/plugins`
+        - <- `${volume-data}/${MATTERMOST_BLEVE_INDEXES_PATH}:/mattermost/bleve-indexes`                                  
       ports:
         - 8065
   depends:
