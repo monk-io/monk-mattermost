@@ -31,19 +31,19 @@ mattermost:
     important-data:
       size: 10
       kind: SSD
-      path: <- `${monk-volume-path}`
+      path: <- `${volume-data}`
   containers:
     defines: containers
     mattermost:
       image:  mattermost/mattermost-enterprise-edition
       image-tag: latest
       paths:
-        - <- `${monk-volume-path}/${MATTERMOST_CONFIG_PATH}:/mattermost/config`
-        - <- `${monk-volume-path}/${MATTERMOST_DATA_PATH}:/mattermost/data`
-        - <- `${monk-volume-path}/${MATTERMOST_LOGS_PATH}:/mattermost/logs`
-        - <- `${monk-volume-path}/${MATTERMOST_PLUGINS_PATH}:/mattermost/plugins`
-        - <- `${monk-volume-path}/${MATTERMOST_CLIENT_PLUGINS_PATH}:/mattermost/client/plugins`
-        - <- `${monk-volume-path}/${MATTERMOST_BLEVE_INDEXES_PATH}:/mattermost/bleve-indexes`                                  
+        - <- `${moncc-volume-path}/${MATTERMOST_CONFIG_PATH}:/mattermost/config`
+        - <- `${moncc-volume-path}/${MATTERMOST_DATA_PATH}:/mattermost/data`
+        - <- `${moncc-volume-path}/${MATTERMOST_LOGS_PATH}:/mattermost/logs`
+        - <- `${moncc-volume-path}/${MATTERMOST_PLUGINS_PATH}:/mattermost/plugins`
+        - <- `${moncc-volume-path}/${MATTERMOST_CLIENT_PLUGINS_PATH}:/mattermost/client/plugins`
+        - <- `${moncc-volume-path}/${MATTERMOST_BLEVE_INDEXES_PATH}:/mattermost/bleve-indexes`                                  
       ports:
         - 8065
   depends:
@@ -85,25 +85,25 @@ mattermost:
       value: "mattermost"
     volume-data:
       type: string
-      value: "/volumes/app"
+      value: <- `${monk-volume-path}/mattermost`
     MATTERMOST_CONFIG_PATH:
       type: string
-      value: "mattermost/config"
+      value: "config"
     MATTERMOST_DATA_PATH:
       type: string
-      value: "mattermost/data"
+      value: "data"
     MATTERMOST_LOGS_PATH:
       type: string
-      value: "mattermost/logs"
+      value: "logs"
     MATTERMOST_PLUGINS_PATH:
       type: string
-      value: "mattermost/plugins"
+      value: "plugins"
     MATTERMOST_CLIENT_PLUGINS_PATH:
       type: string
-      value: "mattermost/client/plugins"
+      value: "client/plugins"
     MATTERMOST_BLEVE_INDEXES_PATH:
       type: string
-      value: "mattermost/bleve-indexes"
+      value: "bleve-indexes"
     MATTERMOST_IMAGE_TAG:
       type: string
       value: "6.3"
