@@ -35,7 +35,7 @@ mattermost:
   containers:
     defines: containers
     mattermost:
-      image:  mattermost/mattermost-enterprise-edition
+      image:  mattermost/mattermost-preview
       image-tag: latest
       paths:
         - <- `${monk-volume-path}/${MATTERMOST_CONFIG_PATH}:/mattermost/config`
