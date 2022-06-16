@@ -45,7 +45,7 @@ mattermost:
     wait-for:
       runnables:
         - mattermost/database
-        - mattermost/nginx
+        # - mattermost/nginx
       timeout: 30
   variables:
     defines: variables     
