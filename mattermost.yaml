@@ -16,22 +16,17 @@ nginx:
   inherits: nginx/latest
   variables:
     listen-port:
-      value: 8080
+      value: 80
     proxy-target-host:
       value: <- get-hostname("mattermost/mattermost", "mattermost")
     proxy-target-port:
       value: 8065
     server-name:
-      value: www.example.com
+      value: example.com
 
 
 mattermost:
   defines: runnable
-  # volumes:
-  #   important-data:
-  #     size: 10
-  #     kind: SSD
-  #     path: <- `${volume-data}`
   containers:
     defines: containers
     mattermost:
@@ -45,12 +40,12 @@ mattermost:
         - <- `${monk-volume-path}/${MATTERMOST_CLIENT_PLUGINS_PATH}:/mattermost/client/plugins`
         - <- `${monk-volume-path}/${MATTERMOST_BLEVE_INDEXES_PATH}:/mattermost/bleve-indexes`                                  
       ports:
-        - 80:8065
+        - 0.0.0.0.80:8065
   depends:
     wait-for:
       runnables:
         - mattermost/database
-        # - mattermost/nginx
+        - mattermost/nginx
       timeout: 30
   variables:
     defines: variables     
@@ -83,9 +78,6 @@ mattermost:
     db-name:
       type: string
       value: "mattermost"
-    volume-data:
-      type: string
-      value: <- `${monk-volume-path}/mattermost`
     MATTERMOST_CONFIG_PATH:
       type: string
       value: "config"

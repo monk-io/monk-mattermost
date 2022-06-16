@@ -2,12 +2,12 @@ namespace: mattermost
 
 stack:
   defines: process-group
-  # balancers:
-  #   app-balancer:
-  #     type: http
-  #     port: 80
-  #     instances:
-  #         - mattermost/nginx
+  balancers:
+    app-balancer:
+      type: http
+      port: 80
+      instances:
+          - mattermost/nginx
   runnable-list:
     - mattermost/database
     - mattermost/mattermost
