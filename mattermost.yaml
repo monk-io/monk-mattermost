@@ -18,7 +18,7 @@ nginx:
     listen-port:
       value: 80
     proxy-target-host:
-      value: <- get-hostname("mattermost/mattermost", "mattermost")
+      value: localhost
     proxy-target-port:
       value: 8065
     server-name:
@@ -40,7 +40,7 @@ mattermost:
         - <- `${monk-volume-path}/${MATTERMOST_CLIENT_PLUGINS_PATH}:/mattermost/client/plugins`
         - <- `${monk-volume-path}/${MATTERMOST_BLEVE_INDEXES_PATH}:/mattermost/bleve-indexes`                                  
       ports:
-        - 8065
+        - 0.0.0.0:8065:8065
   depends:
     wait-for:
       runnables:
