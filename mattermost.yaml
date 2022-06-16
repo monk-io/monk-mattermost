@@ -40,7 +40,7 @@ mattermost:
         - <- `${monk-volume-path}/${MATTERMOST_CLIENT_PLUGINS_PATH}:/mattermost/client/plugins`
         - <- `${monk-volume-path}/${MATTERMOST_BLEVE_INDEXES_PATH}:/mattermost/bleve-indexes`                                  
       ports:
-        - 0.0.0.0.80:8065
+        - 0.0.0.0:80:8065
   depends:
     wait-for:
       runnables:
