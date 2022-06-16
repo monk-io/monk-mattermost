@@ -16,10 +16,10 @@ stack:
     defines: variables
     db-user:
       type: string
-      value: "mmuser"
+      value: "mattermost"
     db-password:
       type: string
-      value: "mmuser_password"   
+      value: "mattermost_password"   
     db-name:
       type: string
       value: "mattermost"

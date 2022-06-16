@@ -5,7 +5,7 @@ database:
   inherits: postgres/12
   variables:
     db-user:
-      value: mmuser
+      value: mattermost
     db-password:
       value: mmuser_password
     db-name:
@@ -71,7 +71,7 @@ mattermost:
       value: <- `postgres://${db-user}:${db-password}@${db-host}:5432/${db-name}?sslmode=disable&connect_timeout=10`
     db-user:
       type: string
-      value: "mmuser"
+      value: "mattermost"
     db-password:
       type: string
       value: "mmuser_password"
