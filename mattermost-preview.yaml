@@ -1,4 +1,7 @@
-mattermost:
+namespace: mattermost
+
+
+mattermost-preview:
   defines: runnable
   containers:
     defines: containers
