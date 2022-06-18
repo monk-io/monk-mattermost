@@ -1,16 +1,5 @@
 namespace: mattermost
 
-services:
-    defines: process-group
-    balancers:
-        defines: balancers
-        app-balancer:
-            type: http
-            port: 80
-            instances:
-                - mattermost/mattermost-preview
-    runnable-list:
-        - mattermost/mattermost-preview
 
 mattermost-preview:
   defines: runnable
