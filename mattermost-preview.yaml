@@ -9,4 +9,4 @@ mattermost-preview:
       image:  mattermost/mattermost-preview
       image-tag: latest
       ports:
-        - 0.0.0.0:80:8065
+        - 0.0.0.0:8065:8065
