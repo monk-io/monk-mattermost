@@ -1,0 +1,7 @@
+namespace: mattermost-preview
+
+stack:
+  defines: process-group
+  runnable-list:
+    - mattermost-preview/mattermost
+    - mattermost-preview/nginx

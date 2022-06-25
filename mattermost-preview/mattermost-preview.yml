@@ -1,0 +1,69 @@
+namespace: mattermost-preview
+
+
+mattermost:
+  defines: runnable
+  containers:
+    defines: containers
+    mattermost:
+      image:  docker.io/mattermost/mattermost-preview
+      image-tag: <- `${mattermost-image-tag}`
+      ports:
+        - 8065
+  variables:
+    mattermost-image-tag:
+      type: string
+      value: latest
+
+nginx:
+  defines: runnable
+  inherits: nginx
+  files:
+    server-def:
+      contents: |
+        server {
+            listen 0.0.0.0:{{ v "listen-port" }};
+            return 404;
+        }      
+        server {
+          listen 0.0.0.0:{{ v "listen-port" }};
+          server_name {{ v "server-name" }};
+          location / {
+            proxy_set_header X-Real-IP  $remote_addr;
+            proxy_set_header X-Forwarded-For $remote_addr;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_set_header Host $host;
+            proxy_pass http://{{ v "proxy-target-host" }}:{{ v "proxy-target-port" }};
+          }
+        }
+      mode: 511
+      path: /opt/bitnami/nginx/conf/server_blocks/reverse_proxy.conf
+      container: nginx-reverse-proxy
+  depends:
+    wait-for:
+      runnables:
+        - mattermost-preview/mattermost
+      timeout: 30      
+  containers:
+    defines: containers
+    nginx-reverse-proxy:
+      image-tag: <- `${nginx-image-tag}`
+      image: docker.io/bitnami/nginx
+      ports:
+      - <- `0.0.0.0:${listen-port}:${listen-port}/tcp`
+  variables:
+    proxy-target-host:
+      value: <- get-hostname("mattermost-preview/mattermost", "mattermost") split(".dns.podman") join("")
+      type: string
+    listen-port:
+      value: "8080"
+      type: string
+    server-name:
+      value: mattermost-preview.com
+      type: string
+    proxy-target-port:
+      type: string
+      value: "8065"
+    nginx-image-tag:
+      type: string
+      value: latest             
