@@ -39,11 +39,11 @@ nginx:
       mode: 511
       path: /opt/bitnami/nginx/conf/server_blocks/reverse_proxy.conf
       container: nginx-reverse-proxy
-  depends:
-    wait-for:
-      runnables:
-        - mattermost-preview/mattermost
-      timeout: 30      
+  # depends:
+  #   wait-for:
+  #     runnables:
+  #       - mattermost-preview/mattermost
+  #     timeout: 30
   containers:
     defines: containers
     nginx-reverse-proxy:
