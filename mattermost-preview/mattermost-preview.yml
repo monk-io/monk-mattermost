@@ -59,6 +59,6 @@ nginx:
     proxy-target-port:
       value: "8065"
       type: string
-    ngx-image-tag:
-      value: <- $nginx-image-tag
+    nginx-image-tag:
+      value: <- $nginx-image
       type: string
