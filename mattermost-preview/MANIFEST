@@ -1,2 +1,2 @@
 REPO monk-mattermost
-LOAD mattermost-preview.yaml stack.yml
+LOAD mattermost-preview.yml stack.yml
