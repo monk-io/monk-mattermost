@@ -12,9 +12,5 @@ stack:
     mattermost-server-name:
       type: string
       value: "mattermost.com"
-    nginx-image-tag:
-      type: string
-      value: "latest"
-    mattermost-image-tag:
-      type: string
-      value: "latest"
+    mattermost-image-tag: 6.5.0
+    nginx-image: 1.22.0
