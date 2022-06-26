@@ -7,13 +7,13 @@ mattermost:
     defines: containers
     mattermost:
       image:  docker.io/mattermost/mattermost-preview
-      image-tag: <- `${mattermost-image-tag}`
+      image-tag: <- `${mattermostt-image-tag}`
       ports:
         - 8065
   variables:
-    mattermost-image-tag:
+    mattermostt-image-tag:
       type: string
-      value: latest
+      value: <- $mattermost-image-tag
 
 nginx:
   defines: runnable
@@ -39,11 +39,6 @@ nginx:
       mode: 511
       path: /opt/bitnami/nginx/conf/server_blocks/reverse_proxy.conf
       container: nginx-reverse-proxy
-  # depends:
-  #   wait-for:
-  #     runnables:
-  #       - mattermost-preview/mattermost
-  #     timeout: 30
   containers:
     defines: containers
     nginx-reverse-proxy:
@@ -56,14 +51,14 @@ nginx:
       value: <- get-hostname("mattermost-preview/mattermost", "mattermost") split(".dns.podman") join("")
       type: string
     listen-port:
-      value: "8080"
+      value: <- $nginx-listen-port
       type: string
     server-name:
-      value: mattermost-preview.com
+      value: <- $mattermost-server-name
       type: string
     proxy-target-port:
-      type: string
       value: "8065"
-    nginx-image-tag:
       type: string
-      value: latest             
+    nginx-image-tag:
+      value: <- $nginx-image-tag
+      type: string
