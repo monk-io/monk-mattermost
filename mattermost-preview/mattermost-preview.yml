@@ -7,11 +7,11 @@ mattermost:
     defines: containers
     mattermost:
       image:  docker.io/mattermost/mattermost-preview
-      image-tag: <- `${mattermostt-image-tag}`
+      image-tag: <- `${mtt-image-tag}`
       ports:
         - 8065
   variables:
-    mattermostt-image-tag:
+    mtt-image-tag:
       type: string
       value: <- $mattermost-image-tag
 
@@ -24,7 +24,7 @@ nginx:
         server {
             listen 0.0.0.0:{{ v "listen-port" }};
             return 404;
-        }      
+        }
         server {
           listen 0.0.0.0:{{ v "listen-port" }};
           server_name {{ v "server-name" }};
@@ -42,7 +42,7 @@ nginx:
   containers:
     defines: containers
     nginx-reverse-proxy:
-      image-tag: <- `${nginx-image-tag}`
+      image-tag: <- `${ngx-image-tag}`
       image: docker.io/bitnami/nginx
       ports:
       - <- `0.0.0.0:${listen-port}:${listen-port}/tcp`
@@ -59,6 +59,6 @@ nginx:
     proxy-target-port:
       value: "8065"
       type: string
-    nginx-image-tag:
+    ngx-image-tag:
       value: <- $nginx-image-tag
       type: string
