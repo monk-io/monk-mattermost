@@ -60,5 +60,5 @@ nginx:
       value: "8065"
       type: string
     nginx-image-tag:
-      value: <- $nginx-image-tag
+      value: <- $nginx-image
       type: string
