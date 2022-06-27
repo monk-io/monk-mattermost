@@ -13,4 +13,4 @@ stack:
       type: string
       value: "monk-mattermost.com"
     mattermost-image-tag: "latest"
-    nginx-image: "latest"
+    nginx-image-tag: "latest"

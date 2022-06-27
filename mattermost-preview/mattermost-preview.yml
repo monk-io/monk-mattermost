@@ -42,7 +42,7 @@ nginx:
   containers:
     defines: containers
     nginx-reverse-proxy:
-      image-tag: <- `${nginx-image-tag}`
+      image-tag: <- `${nginx-image}`
       image: docker.io/bitnami/nginx
       ports:
       - <- `0.0.0.0:${listen-port}:${listen-port}/tcp`
@@ -59,6 +59,6 @@ nginx:
     proxy-target-port:
       value: "8065"
       type: string
-    nginx-image-tag:
-      value: <- $nginx-image
+    nginx-image:
+      value: <- $nginx-image-tag
       type: string

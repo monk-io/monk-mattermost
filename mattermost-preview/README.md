@@ -37,8 +37,18 @@ variables:
       type: string
       value: "monk-mattermost.com"
     mattermost-image-tag: "latest"
-    nginx-image: "latest"
+    nginx-image-tag: "latest"
 ```
+
+##  Template variables
+
+| Variable | Description | Type | Example |
+|----------|-------------|------|---------|
+| **nginx-listen-port** | Configures the ports that the nginx listens on. | int | 8080 |
+| **mattermost-server-name** | Configure the fqdn that nginx will accept and route to. | string | monk-mattermost.com |
+| **mattermost-image-tag** | Mattermost-preview image version. | string | latest |
+| **nginx-image-tag** | Nginx image version. | string | latest |
+
 
 
 ## Local Deployment
