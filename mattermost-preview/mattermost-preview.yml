@@ -7,11 +7,11 @@ mattermost:
     defines: containers
     mattermost:
       image:  docker.io/mattermost/mattermost-preview
-      image-tag: <- `${mattermostt-image-tag}`
+      image-tag: <- `${mattermost-preview-image-tag}`
       ports:
         - 8065
   variables:
-    mattermostt-image-tag:
+    mattermost-preview-image-tag:
       type: string
       value: <- $mattermost-image-tag
 
