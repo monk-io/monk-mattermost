@@ -117,15 +117,15 @@ group     mattermost-preview/stack       local       -        -
 
 ```bash
 # show Mattermost-preview logs
-➜  monk logs -l 1000 -f directus/latest
+➜  monk logs -l 1000 -f mattermost-preview/mattermost
 
 # show Nginx logs
-➜  monk logs -l 1000 -f directus/latest
+➜  monk logs -l 1000 -f mattermost-preview/nginx
 
-# access shell in the container running Directus
-➜  monk shell directus/latest
+# access shell in the container running Mattermost
+➜  monk shell mattermost-preview/mattermost
 
-# access shell in the container running Directus
-➜  monk shell directus/latest
+# access shell in the container running Nginx
+➜  monk shell mattermost-preview/nginx
 ```
 
