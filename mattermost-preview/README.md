@@ -58,6 +58,17 @@ First clone the repository and change the current directory to the /mattermost-p
 
 ```bash
 ➜  monk load MANIFEST
+
+✨ Loaded:
+ ├─🔩 Runnables:
+ │  ├─🧩 mattermost-preview/nginx
+ │  └─🧩 mattermost-preview/mattermost
+ └─🔗 Process groups:
+    └─🧩 mattermost-preview/stack
+✔ All templates loaded successfully
+
+➜  monk list mattermost-preview
+
 ✔ Got the list
 Type      Template                       Repository  Version  Tags
 runnable  mattermost-preview/mattermost  local       -        -
@@ -83,24 +94,36 @@ To deploy the above system to your cloud provider, create a new Monk cluster and
 
 ```bash
 ➜  monk cluster new
-? New cluster name directus-deployment
+? New cluster name mattermost-preview
 ✔ Cluster created
 Your cluster has been created successfully.
 
-➜  monk cluster provider add
-? Cloud provider gcp
-? GOOGLE_APPLICATION_CREDENTIALS is set. Try load it? Yes
+➜  monk cluster provider add -p gcp -f <path/to/your-key.json>
 ✔ Provider added successfully
 
 ➜  monk cluster grow -p gcp
-? Name for the new instance my-instance
-? Tags (split by whitespace) directus
-? Instance region (gcp) europe-west2
-? Instance zone (gcp) europe-west2-c
-? Instance type (gcp) e2-standard-2
-? Disk Size (GBs) 60
-? Number of instances (or press ENTER to use default = 1) 2
-✔ Creating a new instance(s) on gcp...
+? Cloud provider gcp
+? Name of the new instance my-instance
+? Tags (split by whitespace) mattermost
+? Region europe-central2
+? Zone europe-central2-a
+? Instance type e2-medium
+? Number of instances (or press ENTER to use default = 1) 3
+? Default disk type for gcp is HDD (pd-standard). Would you like to change it? No
+? Disk size (or press ENTER to use default = 250 GBs) 50
+✔ Start creation of new instance(s) on gcp... DONE
+✔ Creating node: my-instance-1 DONE
+✔ Initializing node: my-instance-1 DONE
+✔ Creating node: my-instance-2 DONE
+✔ Initializing node: my-instance-2 DONE
+✔ Creating node: my-instance-3 DONE
+✔ Initializing node: my-instance-3 DONE
+✔ Connecting: my-instance-1 DONE
+✔ Syncing peer: my-instance-1 DONE
+✔ Connecting: my-instance-2 DONE
+✔ Connecting: my-instance-3 DONE
+✔ Syncing peer: my-instance-2 DONE
+✔ Syncing peer: my-instance-3 DONE
 ✔ Syncing nodes DONE
 ✔ Cluster grown successfully
 ```
@@ -109,6 +132,17 @@ Once cluster is ready execute the same command as for local and select your clus
 
 ```bash
 ➜  monk load MANIFEST
+
+✨ Loaded:
+ ├─🔩 Runnables:
+ │  ├─🧩 mattermost-preview/nginx
+ │  └─🧩 mattermost-preview/mattermost
+ └─🔗 Process groups:
+    └─🧩 mattermost-preview/stack
+✔ All templates loaded successfully
+
+➜  monk list mattermost-preview
+
 ✔ Got the list
 Type      Template                       Repository  Version  Tags
 runnable  mattermost-preview/mattermost  local       -        -
@@ -119,7 +153,6 @@ group     mattermost-preview/stack       local       -        -
 
 ✔ Started mattermost-preview/stack
 ```
-
 ### Logs & Shell
 
 ```bash
