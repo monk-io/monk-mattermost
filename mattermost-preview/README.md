@@ -53,7 +53,8 @@ variables:
 
 ## Local Deployment
 
-This template is available directly from Monkhub.io therefore if you want a quick deploy simply run below command after launching `monkd`:
+First clone the repository and change the current directory to the /mattermost-preview folder and simply run below command after launching `monkd`:
+:
 
 ```bash
 ➜  monk load MANIFEST
@@ -69,6 +70,12 @@ group     mattermost-preview/stack       local       -        -
 ```
 
 This will start the entire mattermost-preview/stack stack with a Nginx reverse proxy. 
+
+To access mattermost-preview from local system, required  dns entry needs to be added in local host file like following format: 
+
+```
+ 127.0.0.1 <mattermost-server-name>
+  ```
 
 ## Cloud Deployment
 
