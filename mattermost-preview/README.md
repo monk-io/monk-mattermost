@@ -71,7 +71,7 @@ group     mattermost-preview/stack       local       -        -
 
 This will start the entire mattermost-preview/stack stack with a Nginx reverse proxy. 
 
-To access mattermost-preview from local system, required  dns entry needs to be added in local host file like following format: 
+To access mattermost-preview from local system, required  dns entry needs to be added in local host file as following format: 
 
 ```
  127.0.0.1 <mattermost-server-name>
