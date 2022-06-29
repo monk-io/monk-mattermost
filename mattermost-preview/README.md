@@ -153,7 +153,7 @@ group     mattermost-preview/stack       local       -        -
 
 ✔ Started mattermost-preview/stack
 ```
-### Logs & Shell
+## Logs & Shell
 
 ```bash
 # show Mattermost-preview logs
