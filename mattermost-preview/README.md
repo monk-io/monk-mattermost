@@ -32,7 +32,7 @@ The current variables can be found in `mattermost-preview/stack/variables` secti
 variables:
     nginx-listen-port:
       type: int
-      value: 8080
+      value: 80
     mattermost-server-name:
       type: string
       value: "monk-mattermost.com"
@@ -44,7 +44,7 @@ variables:
 
 | Variable | Description | Type | Example |
 |----------|-------------|------|---------|
-| **nginx-listen-port** | Configures the ports that the nginx listens on. | int | 8080 |
+| **nginx-listen-port** | Configures the ports that the nginx listens on. | int | 80 |
 | **mattermost-server-name** | Configure the fqdn that nginx will accept and route to. | string | monk-mattermost.com |
 | **mattermost-image-tag** | Mattermost-preview image version. | string | latest |
 | **nginx-image-tag** | Nginx image version. | string | latest |

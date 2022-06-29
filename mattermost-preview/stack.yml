@@ -8,7 +8,7 @@ stack:
   variables:
     nginx-listen-port:
       type: int
-      value: 8080
+      value: 80
     mattermost-server-name:
       type: string
       value: "monk-mattermost.com"
