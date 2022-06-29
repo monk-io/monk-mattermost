@@ -169,3 +169,12 @@ group     mattermost-preview/stack       local       -        -
 ➜  monk shell mattermost-preview/nginx
 ```
 
+## Stop, remove and clean up workloads and templates
+
+```bash
+➜ monk purge -x mattermost-preview/stack mattermost-preview/mattermost mattermost-preview/nginx
+
+✔ mattermost-preview/stack purged
+✔ mattermost-preview/mattermost purged
+✔ mattermost-preview/nginx purged
+```
