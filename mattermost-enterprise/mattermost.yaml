@@ -65,8 +65,8 @@ mattermost:
   containers:
     defines: containers
     mattermost:
-      image:  mattermost/mattermost-preview
-      image-tag: latest
+      image:  mattermost/mattermost-enterprise-edition
+      image-tag: <- `${MATTERMOST_IMAGE_TAG}`
       paths:
         - <- `${monk-volume-path}/${MATTERMOST_CONFIG_PATH}:/mattermost/config`
         - <- `${monk-volume-path}/${MATTERMOST_DATA_PATH}:/mattermost/data`
@@ -79,8 +79,8 @@ mattermost:
   depends:
     wait-for:
       runnables:
-        - mattermost/database
-        - mattermost/nginx
+        - mattermost-enterprise/database
+        - mattermost-enterprise/nginx
       timeout: 30
   variables:
     defines: variables     
@@ -133,7 +133,7 @@ mattermost:
       value: "bleve-indexes"
     MATTERMOST_IMAGE_TAG:
       type: string
-      value: <- `${MATTERMOST_IMAGE_TAG}`
+      value: <- `${mattermost-image-tag}`
     db-host:
       type: string
       value: <- get-hostname("mattermost-enterprise/database", "postgres")

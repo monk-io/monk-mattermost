@@ -17,7 +17,7 @@ stack:
     db-name:
       type: string
       value: "mattermost"
-    listen-port:
+    nginx-listen-port:
       type: int
       value: 8080
     server-name:
@@ -37,3 +37,6 @@ stack:
     nginx-image-tag: 
        type: string
        value: "latest"
+    mattermost-image-tag: 
+       type: string
+       value: "latest"       
