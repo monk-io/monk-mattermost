@@ -1,28 +1,63 @@
-namespace: mattermost
+namespace: mattermost-enterprise
 
 database:
   defines: runnable
   inherits: postgres/12
   variables:
     db-user:
-      value: mattermost
+      value: <- `${db-user}`
     db-password:
-      value: mmuser_password
+      value: <- `${db-password}`
     db-name:
-      value: mattermost
+      value: <- `${db-name}`
 
 nginx:
   defines: runnable
-  inherits: nginx/latest
+  inherits: nginx
+  files:
+    server-def:
+      contents: |
+        server {
+            listen 0.0.0.0:{{ v "listen-port" }};
+            return 404;
+        }      
+        server {
+          listen 0.0.0.0:{{ v "listen-port" }};
+          server_name {{ v "server-name" }};
+          location / {
+            proxy_set_header X-Real-IP  $remote_addr;
+            proxy_set_header X-Forwarded-For $remote_addr;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_set_header Host $host;
+            proxy_pass http://{{ v "proxy-target-host" }}:{{ v "proxy-target-port" }};
+          }
+        }
+      mode: 511
+      path: /opt/bitnami/nginx/conf/server_blocks/reverse_proxy.conf
+      container: nginx-reverse-proxy
+  containers:
+    defines: containers
+    nginx-reverse-proxy:
+      image-tag: <- `${nginx-image}`
+      image: docker.io/bitnami/nginx
+      ports:
+      - <- `0.0.0.0:${listen-port}:${listen-port}/tcp`
   variables:
-    listen-port:
-      value: 80
     proxy-target-host:
-      value: localhost
-    proxy-target-port:
-      value: 8065
+      value: <- get-hostname("mattermost-preview/mattermost", "mattermost") split(".dns.podman") join("")
+      type: string
+    listen-port:
+      value: <- $nginx-listen-port
+      type: string
     server-name:
-      value: example.com
+      value: <- $mattermost-server-name
+      type: string
+    proxy-target-port:
+      value: "8065"
+      type: string
+    nginx-image:
+      value: <- $nginx-image-tag
+      type: string
 
 
 mattermost:
@@ -40,12 +75,12 @@ mattermost:
         - <- `${monk-volume-path}/${MATTERMOST_CLIENT_PLUGINS_PATH}:/mattermost/client/plugins`
         - <- `${monk-volume-path}/${MATTERMOST_BLEVE_INDEXES_PATH}:/mattermost/bleve-indexes`                                  
       ports:
-        - 0.0.0.0:8065:8065
+        - 8065
   depends:
     wait-for:
       runnables:
         - mattermost/database
-        # - mattermost/nginx
+        - mattermost/nginx
       timeout: 30
   variables:
     defines: variables     
@@ -64,20 +99,20 @@ mattermost:
     MM_SERVICESETTINGS_SITEURL:
       env: MM_SERVICESETTINGS_SITEURL
       type: string
-      value: "https://mm.example.com"
+      value: <- $mattermost-server-name
     MM_SQLSETTINGS_DATASOURCE:
       env: MM_SQLSETTINGS_DATASOURCE
       type: string
       value: <- `postgres://${db-user}:${db-password}@${db-host}:5432/${db-name}?sslmode=disable&connect_timeout=10`
     db-user:
       type: string
-      value: "mattermost"
+      value: <- `${db-user}`
     db-password:
       type: string
-      value: "mmuser_password"
+      value: <- `${db-password}`
     db-name:
       type: string
-      value: "mattermost"
+      value: <- `${db-name}`
     MATTERMOST_CONFIG_PATH:
       type: string
       value: "config"
@@ -98,7 +133,7 @@ mattermost:
       value: "bleve-indexes"
     MATTERMOST_IMAGE_TAG:
       type: string
-      value: "6.3"
+      value: <- `${MATTERMOST_IMAGE_TAG}`
     db-host:
       type: string
-      value: <- get-hostname("mattermost/database", "postgres")
+      value: <- get-hostname("mattermost-enterprise/database", "postgres")

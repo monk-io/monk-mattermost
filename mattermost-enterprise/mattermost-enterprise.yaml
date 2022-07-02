@@ -12,7 +12,7 @@ services:
     runnable-list:
         - mattermost/mattermost-preview
 
-mattermost-preview:
+mattermost:
   defines: runnable
   containers:
     defines: containers
