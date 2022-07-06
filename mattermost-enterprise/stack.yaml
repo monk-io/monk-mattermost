@@ -1,4 +1,4 @@
-namespace: mattermost
+namespace: mattermost-enterprise
 
 stack:
   defines: process-group
@@ -20,17 +20,16 @@ stack:
     nginx-listen-port:
       type: int
       value: 8080
-    server-name:
+    nginx-server-name:
       type: string
-      value: "monk-mattermost-enterprise.com"         
+      value: mm.example.com
     TZ:
       env: TZ
       type: string
       value: "UTC"
-    MM_SERVICESETTINGS_SITEURL:
-      env: MM_SERVICESETTINGS_SITEURL
+    mattermost-server-name:
       type: string
-      value: "https://mm.example.com"
+      value: https://mm.example.com
     MATTERMOST_IMAGE_TAG:
       type: string
       value: "6.3"
