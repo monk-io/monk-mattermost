@@ -17,25 +17,19 @@ stack:
     db-name:
       type: string
       value: "mattermost"
-    nginx-listen-port:
-      type: int
-      value: 8080
-    nginx-server-name:
-      type: string
-      value: mm.example.com
     TZ:
       env: TZ
       type: string
       value: "UTC"
     mattermost-server-name:
       type: string
-      value: https://mm.example.com
-    MATTERMOST_IMAGE_TAG:
-      type: string
-      value: "6.3"
-    nginx-image-tag: 
-       type: string
-       value: "latest"
+      value: mm.example.com
     mattermost-image-tag: 
        type: string
        value: "latest"
+    nginx-listen-port:
+      type: int
+      value: 8080
+    nginx-image-tag: 
+       type: string
+       value: "latest" 

@@ -50,7 +50,7 @@ nginx:
       value: <- $nginx-listen-port
       type: string
     server-name:
-      value: <- $nginx-server-name
+      value: <- $mattermost-server-name
       type: string
     proxy-target-port:
       value: "8065"
@@ -99,7 +99,7 @@ mattermost:
     MM_SERVICESETTINGS_SITEURL:
       env: MM_SERVICESETTINGS_SITEURL
       type: string
-      value: <- $mattermost-server-name
+      value: <- `https://${mattermost-server-name}`
     MM_SQLSETTINGS_DATASOURCE:
       env: MM_SQLSETTINGS_DATASOURCE
       type: string

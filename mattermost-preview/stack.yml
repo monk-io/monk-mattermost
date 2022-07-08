@@ -11,7 +11,7 @@ stack:
       value: 8081
     mattermost-server-name:
       type: string
-      value: "monk-mattermost.com"
+      value: "mm.example.com"
     mattermost-image-tag: "latest"
     nginx-image-tag: "latest"
 

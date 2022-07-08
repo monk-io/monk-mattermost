@@ -16,9 +16,12 @@ monk login --email=<email> --password=<password>
 
 ## Clone Monk Mattermost-preview repository
 
-In order to load templates and change configuration simply use below command: 
+In order to load templates and change configuration simply use below commands: 
 ```bash
 git clone https://github.com/kaganmersin/monk-mattermost.git
+
+# and change directory to the mattermost-preview template folder
+cd mattermost-preview
 ```
 
 
@@ -32,10 +35,10 @@ The current variables can be found in `mattermost-preview/stack/variables` secti
 variables:
     nginx-listen-port:
       type: int
-      value: 80
+      value: 8081
     mattermost-server-name:
       type: string
-      value: "monk-mattermost.com"
+      value: "mm.example.com"
     mattermost-image-tag: "latest"
     nginx-image-tag: "latest"
 ```
@@ -44,8 +47,8 @@ variables:
 
 | Variable | Description | Type | Example |
 |----------|-------------|------|---------|
-| **nginx-listen-port** | Configures the ports that the nginx listens on. | int | 80 |
-| **mattermost-server-name** | Configure the fqdn that nginx will accept and route to. | string | monk-mattermost.com |
+| **nginx-listen-port** | Configures the ports that the nginx listens on. | int | 8081 |
+| **mattermost-server-name** | Configure the fqdn that nginx will accept and route to. | string | mm.example.com |
 | **mattermost-image-tag** | Mattermost-preview image version. | string | latest |
 | **nginx-image-tag** | Nginx image version. | string | latest |
 
@@ -70,10 +73,14 @@ First clone the repository and change the current directory to the /mattermost-p
 ➜  monk list mattermost-preview
 
 ✔ Got the list
-Type      Template                       Repository  Version  Tags
-runnable  mattermost-preview/mattermost  local       -        -
-runnable  mattermost-preview/nginx       local       -        -
-group     mattermost-preview/stack       local       -        -
+Type      Template                         Repository          Version      Tags
+runnable  mattermost-preview/mattermost    local               -            -
+runnable  mattermost-preview/nginx         local               -            -
+group     mattermost-preview/stack         local               -            -
+runnable  nginx/latest                     mattermost-preview  -            -
+runnable  nginx/reverse-proxy              mattermost-preview  -            -
+runnable  nginx/reverse-proxy-ssl-certbot  mattermost-preview  1.15-alpine  nginx, reverse proxy, ssl, certbot
+
 
 ➜  monk run mattermost-preview/stack
 
@@ -144,10 +151,13 @@ Once cluster is ready execute the same command as for local and select your clus
 ➜  monk list mattermost-preview
 
 ✔ Got the list
-Type      Template                       Repository  Version  Tags
-runnable  mattermost-preview/mattermost  local       -        -
-runnable  mattermost-preview/nginx       local       -        -
-group     mattermost-preview/stack       local       -        -
+Type      Template                         Repository          Version      Tags
+runnable  mattermost-preview/mattermost    local               -            -
+runnable  mattermost-preview/nginx         local               -            -
+group     mattermost-preview/stack         local               -            -
+runnable  nginx/latest                     mattermost-preview  -            -
+runnable  nginx/reverse-proxy              mattermost-preview  -            -
+runnable  nginx/reverse-proxy-ssl-certbot  mattermost-preview  1.15-alpine  nginx, reverse proxy, ssl, certbot
 
 ➜  monk run mattermost-preview/stack
 
