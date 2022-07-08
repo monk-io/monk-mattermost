@@ -68,12 +68,12 @@ mattermost:
       image:  mattermost/mattermost-enterprise-edition
       image-tag: <- `${MATTERMOST_IMAGE}`
       paths:
-        - <- `${monk-volume-path}/${MATTERMOST_CONFIG_PATH}:/mattermost/config`
-        - <- `${monk-volume-path}/${MATTERMOST_DATA_PATH}:/mattermost/data`
-        - <- `${monk-volume-path}/${MATTERMOST_LOGS_PATH}:/mattermost/logs`
-        - <- `${monk-volume-path}/${MATTERMOST_PLUGINS_PATH}:/mattermost/plugins`
-        - <- `${monk-volume-path}/${MATTERMOST_CLIENT_PLUGINS_PATH}:/mattermost/client/plugins`
-        - <- `${monk-volume-path}/${MATTERMOST_BLEVE_INDEXES_PATH}:/mattermost/bleve-indexes`                                  
+        - <- `${moncc-volume-path}/mattermost/${MATTERMOST_CONFIG_PATH}:/var/lib/mattermost/config`
+        - <- `${moncc-volume-path}/mattermost/${MATTERMOST_DATA_PATH}:/var/lib/mattermost/data`
+        - <- `${moncc-volume-path}/mattermost/${MATTERMOST_LOGS_PATH}:/var/lib/mattermost/logs`
+        - <- `${moncc-volume-path}/mattermost/${MATTERMOST_PLUGINS_PATH}:/var/lib/mattermost/plugins`
+        - <- `${moncc-volume-path}/mattermost/${MATTERMOST_CLIENT_PLUGINS_PATH}:/var/lib/mattermost/client/plugins`
+        - <- `${moncc-volume-path}/mattermost/${MATTERMOST_BLEVE_INDEXES_PATH}:/var/lib/mattermost/bleve-indexes`                           
       ports:
         - 8065
   depends:

@@ -38,4 +38,4 @@ stack:
        value: "latest"
     mattermost-image-tag: 
        type: string
-       value: "latest"       
+       value: "latest"
