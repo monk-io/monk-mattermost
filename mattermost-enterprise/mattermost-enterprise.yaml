@@ -5,11 +5,11 @@ database:
   inherits: postgres/12
   variables:
     db-user:
-      value: <- `${db-user}`
+      value: <- `${database-user}`
     db-password:
-      value: <- `${db-password}`
+      value: <- `${database-password}`
     db-name:
-      value: <- `${db-name}`
+      value: <- `${database-name}`
 
 nginx:
   defines: runnable
@@ -80,7 +80,6 @@ mattermost:
     wait-for:
       runnables:
         - mattermost-enterprise/database
-        - mattermost-enterprise/nginx
       timeout: 30
   variables:
     defines: variables     
@@ -106,13 +105,13 @@ mattermost:
       value: <- `postgres://${db-user}:${db-password}@${db-host}:5432/${db-name}?sslmode=disable&connect_timeout=10`
     db-user:
       type: string
-      value: <- `${db-user}`
+      value: <- `${database-user}`
     db-password:
       type: string
-      value: <- `${db-password}`
+      value: <- `${database-password}`
     db-name:
       type: string
-      value: <- `${db-name}`
+      value: <- `${database-name}`
     MATTERMOST_CONFIG_PATH:
       type: string
       value: "config"

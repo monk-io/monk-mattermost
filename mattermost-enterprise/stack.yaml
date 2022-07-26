@@ -8,13 +8,13 @@ stack:
     - mattermost-enterprise/nginx
   variables:
     defines: variables
-    db-user:
+    database-user:
       type: string
       value: "mattermost"
-    db-password:
+    database-password:
       type: string
-      value: "mattermost_password"   
-    db-name:
+      value: "password"
+    database-name:
       type: string
       value: "mattermost"
     TZ:

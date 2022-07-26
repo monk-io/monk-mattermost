@@ -34,13 +34,13 @@ The current variables can be found in `mattermost-enterprise/stack/variables` se
 ```yaml
   variables:
     defines: variables
-    db-user:
+    database-user:
       type: string
       value: "mattermost"
-    db-password:
+    database-password:
       type: string
-      value: "mattermost_password"   
-    db-name:
+      value: "password"
+    database-name:
       type: string
       value: "mattermost"
     TZ:
@@ -58,16 +58,16 @@ The current variables can be found in `mattermost-enterprise/stack/variables` se
       value: 8080
     nginx-image-tag: 
        type: string
-       value: "latest"       
+       value: "latest"        
 ```
 
 ##  Template variables
 
 | Variable | Description | Type | Example |
 |----------|-------------|------|---------|
-| **db-user** | Postgresql database username that  used by mattermost | string | mattermost
-| **db-password** | Postgresql database username password that used by mattermost | string | mattermost_password
-| **db-name** | Postgresql database name that  used by mattermost | string | mattermost
+| **database-user** | Postgresql database username that  used by mattermost | string | mattermost
+| **database-password** | Postgresql database username password that used by mattermost | string | password
+| **database-name** | Postgresql database name that  used by mattermost | string | mattermost
 | **TZ** | Timezone | string | UTC 
 | **mattermost-server-name** | Fqdn that nginx will accept and route to. | string | mm.example.com |
 | **mattermost-image-tag** | Mattermost-preview image version. | string | latest |
