@@ -2,7 +2,7 @@
 
 This repository contains Monk.io template to deploy Mattermost-enterpise system either locally or on cloud of your choice (AWS, GCP, Azure, Digital Ocean).
 
-This template includes Nginx as a reverse proxy and PostgreSQL a Mattermost-enterprise out of box.
+This template includes Nginx as a reverse proxy and PostgreSQL to work with  Mattermost-enterprise out of box.
 
 ## Start
 

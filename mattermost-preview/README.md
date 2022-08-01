@@ -2,7 +2,7 @@
 
 This repository contains Monk.io template to deploy Mattermost-preview system either locally or on cloud of your choice (AWS, GCP, Azure, Digital Ocean).
 
-This template includes Nginx as a reverse proxy a Mattermost-preview out of box.
+This template includes Nginx as a reverse proxy to work with  Mattermost-preview out of box.
 
 ## Start
 
