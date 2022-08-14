@@ -86,11 +86,13 @@ First clone the repository and change the current directory to the /mattermost-e
 
 ✨ Loaded:
  ├─🔩 Runnables:
+ │  ├─🧩 mattermost-enterprise/nginx
  │  ├─🧩 mattermost-enterprise/mattermost
- │  ├─🧩 mattermost-enterprise/database
- │  └─🧩 mattermost-enterprise/nginx
- └─🔗 Process groups:
-    └─🧩 mattermost-enterprise/stack
+ │  └─🧩 mattermost-enterprise/database
+ ├─🔗 Process groups:
+ │  └─🧩 mattermost-enterprise/stack
+ └─⚙️ Entity instances:
+    └─🧩 mattermost-enterprise/mattermost/metadata
 ✔ All templates loaded successfully
 
 ➜  monk list mattermost-enterprise
@@ -164,11 +166,13 @@ Once cluster is ready execute the same command as for local and select your clus
 
 ✨ Loaded:
  ├─🔩 Runnables:
+ │  ├─🧩 mattermost-enterprise/nginx
  │  ├─🧩 mattermost-enterprise/mattermost
- │  ├─🧩 mattermost-enterprise/database
- │  └─🧩 mattermost-enterprise/nginx
- └─🔗 Process groups:
-    └─🧩 mattermost-enterprise/stack
+ │  └─🧩 mattermost-enterprise/database
+ ├─🔗 Process groups:
+ │  └─🧩 mattermost-enterprise/stack
+ └─⚙️ Entity instances:
+    └─🧩 mattermost-enterprise/mattermost/metadata
 ✔ All templates loaded successfully
 ➜  monk list mattermost-preview
 

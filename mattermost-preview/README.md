@@ -66,8 +66,10 @@ First clone the repository and change the current directory to the /mattermost-p
  ├─🔩 Runnables:
  │  ├─🧩 mattermost-preview/nginx
  │  └─🧩 mattermost-preview/mattermost
- └─🔗 Process groups:
-    └─🧩 mattermost-preview/stack
+ ├─🔗 Process groups:
+ │  └─🧩 mattermost-preview/stack
+ └─⚙️ Entity instances:
+    └─🧩 mattermost-preview/mattermost/metadata
 ✔ All templates loaded successfully
 
 ➜  monk list mattermost-preview

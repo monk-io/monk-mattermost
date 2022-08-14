@@ -3,6 +3,14 @@ namespace: mattermost-preview
 
 mattermost:
   defines: runnable
+  metadata:
+    defines: metadata
+    name: mattermost
+    description: Mattermost is a secure, open source platform for communication, collaboration, and workflow orchestration across tools and teams.
+    tags: self hosted, communication, collaboration, workflow orchestration
+    website: https://mattermost.com/
+    source: https://github.com/mattermost/mattermost-server
+    publisher: "monk.io"  
   containers:
     defines: containers
     mattermost:
