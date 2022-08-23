@@ -10,7 +10,8 @@ mattermost:
     tags: self hosted, communication, collaboration, workflow orchestration
     website: https://mattermost.com/
     source: https://github.com/mattermost/mattermost-server
-    publisher: "monk.io"  
+    publisher: "monk.io"
+    icon: https://pbs.twimg.com/profile_images/1524820253938696199/NvcFnuZX_400x400.png
   containers:
     defines: containers
     mattermost:
