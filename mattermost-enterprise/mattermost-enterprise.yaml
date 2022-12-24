@@ -3,6 +3,11 @@ namespace: mattermost-enterprise
 database:
   defines: runnable
   inherits: postgres/12
+  services:
+    postgres:
+      container: postgres
+      port: 5432
+      protocol: tcp  
   variables:
     db-user:
       value: <- `${database-user}`
@@ -14,22 +19,27 @@ database:
 nginx:
   defines: runnable
   inherits: nginx
+  services:
+    nginx:
+      container: nginx-reverse-proxy
+      port: <- `${listen-port}` to-i
+      protocol: tcp
+      host-port: <- `${listen-port}` to-i
+  connections:
+    mattermost:
+      runnable: mattermost-enterprise/mattermost
+      service: mattermost 
   files:
     server-def:
       contents: |
         server {
-            listen 0.0.0.0:{{ v "listen-port" }};
-            return 404;
-        }      
-        server {
           listen 0.0.0.0:{{ v "listen-port" }};
-          server_name {{ v "server-name" }};
           location / {
             proxy_set_header X-Real-IP  $remote_addr;
             proxy_set_header X-Forwarded-For $remote_addr;
             proxy_set_header X-Forwarded-Proto $scheme;
             proxy_set_header Host $host;
-            proxy_pass http://{{ v "proxy-target-host" }}:{{ v "proxy-target-port" }};
+            proxy_pass http://{{ v "proxy-target-host" }}:8065;
           }
         }
       mode: 511
@@ -44,16 +54,13 @@ nginx:
       - <- `0.0.0.0:${listen-port}:${listen-port}/tcp`
   variables:
     proxy-target-host:
-      value: <- get-hostname("mattermost-enterprise/mattermost", "mattermost") split(".dns.podman") join("")
+      value: <- connection-hostname("mattermost")
       type: string
     listen-port:
       value: <- $nginx-listen-port
       type: string
     server-name:
       value: <- $mattermost-server-name
-      type: string
-    proxy-target-port:
-      value: "8065"
       type: string
     nginx-image:
       value: <- $nginx-image-tag
@@ -71,6 +78,16 @@ mattermost:
     source: https://github.com/mattermost/mattermost-server
     publisher: "monk.io"  
     icon: https://pbs.twimg.com/profile_images/1524820253938696199/NvcFnuZX_400x400.png
+  services:
+    mattermost:
+      container: mattermost
+      port: 8065
+      protocol: tcp
+      host-port: 8065
+  connections:
+    postgres:
+      runnable: mattermost-enterprise/database
+      service: postgres
   containers:
     defines: containers
     mattermost:
@@ -144,4 +161,4 @@ mattermost:
       value: <- `${mattermost-image-tag}`
     db-host:
       type: string
-      value: <- get-hostname("mattermost-enterprise/database", "postgres") split(".dns.podman") join("")
+      value: <- connection-hostname("postgres")

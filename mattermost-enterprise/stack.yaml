@@ -21,9 +21,6 @@ stack:
       env: TZ
       type: string
       value: "UTC"
-    mattermost-server-name:
-      type: string
-      value: mm.example.com
     mattermost-image-tag: 
        type: string
        value: "latest"

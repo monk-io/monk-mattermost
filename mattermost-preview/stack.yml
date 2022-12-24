@@ -9,9 +9,6 @@ stack:
     nginx-listen-port:
       type: int
       value: 8081
-    mattermost-server-name:
-      type: string
-      value: "mm.example.com"
     mattermost-image-tag: "latest"
     nginx-image-tag: "latest"
 
