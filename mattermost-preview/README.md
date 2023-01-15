@@ -184,7 +184,7 @@ runnable  nginx/reverse-proxy-ssl-certbot  mattermost-preview  1.15-alpine  ngin
 ## Stop, remove and clean up workloads and templates
 
 ```bash
-➜ monk purge -x mattermost-preview/stack mattermost-preview/mattermost mattermost-preview/nginx
+➜ monk purge --ii --rv --rs --no-confirm --rv --rs mattermost-preview/mattermost mattermost-preview  mattermost-preview/stack nginx
 
 ✔ mattermost-preview/stack purged
 ✔ mattermost-preview/mattermost purged
