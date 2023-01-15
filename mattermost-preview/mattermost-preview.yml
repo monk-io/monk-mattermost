@@ -25,10 +25,15 @@ mattermost:
       image-tag: <- `${mattermost-preview-image-tag}`
       ports:
         - 8065
+      paths:
+        - <- `${monk-volume-path}/mattermost/${MATTERMOST_DATA_PATH}:/mm/mattermost-data`        
   variables:
     mattermost-preview-image-tag:
       type: string
       value: <- $mattermost-image-tag
+    MATTERMOST_DATA_PATH:
+      type: string
+      value: "data"      
 
 nginx:
   defines: runnable
