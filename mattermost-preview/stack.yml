@@ -8,7 +8,7 @@ stack:
   variables:
     nginx-listen-port:
       type: int
-      value: 8081
+      value: 80
     mattermost-image-tag: "latest"
     nginx-image-tag: "latest"
 

@@ -26,7 +26,7 @@ stack:
        value: "latest"
     nginx-listen-port:
       type: int
-      value: 8080
+      value: 80
     nginx-image-tag: 
        type: string
        value: "latest" 
