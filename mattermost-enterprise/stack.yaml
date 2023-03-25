@@ -1,3 +1,4 @@
+---
 namespace: mattermost-enterprise
 
 stack:
@@ -10,23 +11,23 @@ stack:
     defines: variables
     database-user:
       type: string
-      value: "mattermost"
+      value: mattermost
     database-password:
       type: string
-      value: "password"
+      value: password
     database-name:
       type: string
-      value: "mattermost"
+      value: mattermost
     TZ:
       env: TZ
       type: string
-      value: "UTC"
-    mattermost-image-tag: 
-       type: string
-       value: "latest"
+      value: UTC
+    mattermost-image-tag:
+      type: string
+      value: latest
     nginx-listen-port:
       type: int
       value: 80
-    nginx-image-tag: 
-       type: string
-       value: "latest" 
+    nginx-image-tag:
+      type: string
+      value: latest
