@@ -1,5 +1,5 @@
+---
 namespace: mattermost-preview
-
 
 mattermost:
   defines: runnable
@@ -10,30 +10,30 @@ mattermost:
     tags: self hosted, communication, collaboration, workflow orchestration
     website: https://mattermost.com/
     source: https://github.com/mattermost/mattermost-server
-    publisher: "monk.io"
+    publisher: monk.io
     icon: https://pbs.twimg.com/profile_images/1524820253938696199/NvcFnuZX_400x400.png
   services:
     mattermost:
       container: mattermost
       port: 8065
       protocol: tcp
-      host-port: 8065    
+      host-port: 8065
   containers:
     defines: containers
     mattermost:
-      image:  docker.io/mattermost/mattermost-preview
+      image: docker.io/mattermost/mattermost-preview
       image-tag: <- `${mattermost-preview-image-tag}`
       ports:
         - 8065
       paths:
-        - <- `${monk-volume-path}/mattermost/${MATTERMOST_DATA_PATH}:/mm/mattermost-data`        
+        - <- `${monk-volume-path}/mattermost/${MATTERMOST_DATA_PATH}:/mm/mattermost-data`
   variables:
     mattermost-preview-image-tag:
       type: string
       value: <- $mattermost-image-tag
     MATTERMOST_DATA_PATH:
       type: string
-      value: "data"      
+      value: data
 
 nginx:
   defines: runnable
@@ -51,10 +51,10 @@ nginx:
   connections:
     mattermost:
       runnable: mattermost-preview/mattermost
-      service: mattermost   
+      service: mattermost
   files:
     server-def:
-      contents: |     
+      contents: |
         server {
           listen 0.0.0.0:{{ v "listen-port" }};
           location / {
@@ -74,9 +74,9 @@ nginx:
       image-tag: <- `${nginx-image}`
       image: docker.io/bitnami/nginx
       ports:
-      - <- `0.0.0.0:${listen-port}:${listen-port}/tcp`
+        - <- `0.0.0.0:${listen-port}:${listen-port}/tcp`
       cap-add:
-        - CAP_NET_BIND_SERVICE       
+        - CAP_NET_BIND_SERVICE
   variables:
     proxy-target-host:
       value: <- connection-hostname("mattermost")

@@ -1,3 +1,4 @@
+---
 namespace: mattermost-preview
 
 stack:
@@ -9,7 +10,5 @@ stack:
     nginx-listen-port:
       type: int
       value: 80
-    mattermost-image-tag: "latest"
-    nginx-image-tag: "latest"
-
-
+    mattermost-image-tag: latest
+    nginx-image-tag: latest
