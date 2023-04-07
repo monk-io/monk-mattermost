@@ -6,7 +6,7 @@ This template includes Nginx as a reverse proxy and PostgreSQL to work with  Mat
 
 ## Start
 
-Set up Monk - https://docs.monk.io/docs/monk-in-10/
+Set up Monk - [https://docs.monk.io/docs/monk-in-10/](https://docs.monk.io/docs/monk-in-10/)
 
 Start `monkd` and login.
 
@@ -16,14 +16,14 @@ monk login --email=<email> --password=<password>
 
 ## Clone Monk Mattermost-enterprise repository
 
-In order to load templates and change configuration simply use below commands: 
+In order to load templates and change configuration simply use below commands:
+
 ```bash
 git clone https://github.com/monk-io/monk-mattermost.git
 
 # and change directory to the mattermost-enterprise template folder
 cd mattermost-enterprise
 ```
-
 
 ## Configuration
 
@@ -50,36 +50,34 @@ The current variables can be found in `mattermost-enterprise/stack/variables` se
     mattermost-server-name:
       type: string
       value: mm.example.com
-    mattermost-image-tag: 
+    mattermost-image-tag:
        type: string
        value: "latest"
     nginx-listen-port:
       type: int
       value: 8080
-    nginx-image-tag: 
+    nginx-image-tag:
        type: string
-       value: "latest"        
+       value: "latest"
 ```
 
-##  Template variables
+## Template variables
 
-| Variable | Description | Type | Example |
-|----------|-------------|------|---------|
-| **database-user** | Postgresql database username that  used by mattermost | string | mattermost
-| **database-password** | Postgresql database username password that used by mattermost | string | password
-| **database-name** | Postgresql database name that  used by mattermost | string | mattermost
-| **TZ** | Timezone | string | UTC 
-| **mattermost-server-name** | Fqdn that nginx will accept and route to. | string | mm.example.com |
-| **mattermost-image-tag** | Mattermost-preview image version. | string | latest |
-| **nginx-listen-port** | Configures the ports that the nginx listens on. | int | 8081 |
-| **nginx-image-tag** | Nginx image version. | string | latest |
-
-
+| Variable                   | Description                                                   | Type   | Example        |
+| -------------------------- | ------------------------------------------------------------- | ------ | -------------- |
+| **database-user**          | Postgresql database username that  used by mattermost         | string | mattermost     |
+| **database-password**      | Postgresql database username password that used by mattermost | string | password       |
+| **database-name**          | Postgresql database name that  used by mattermost             | string | mattermost     |
+| **TZ**                     | Timezone                                                      | string | UTC            |
+| **mattermost-server-name** | Fqdn that nginx will accept and route to.                     | string | mm.example.com |
+| **mattermost-image-tag**   | Mattermost-preview image version.                             | string | latest         |
+| **nginx-listen-port**      | Configures the ports that the nginx listens on.               | int    | 8081           |
+| **nginx-image-tag**        | Nginx image version.                                          | string | latest         |
 
 ## Local Deployment
 
-First clone the repository and change the current directory to the /mattermost-enterprise folder and simply run below command after launching `monkd`:
-:
+| First clone the repository and change the current directory to the /mattermost-enterprise folder and simply run below command after launching `monkd`: |
+| :----------------------------------------------------------------------------------------------------------------------------------------------------: |
 
 ```bash
 ➜  monk load MANIFEST
@@ -111,11 +109,11 @@ runnable  nginx/reverse-proxy-ssl-certbot   mattermost-enterprise  1.15-alpine  
 ✔ Started mattermost-enterprise/stack
 ```
 
-This will start the entire mattermost-enterprise/stack  with a Nginx reverse proxy and Postgresql. 
+This will start the entire mattermost-enterprise/stack  with a Nginx reverse proxy and Postgresql.
 
-To access mattermost-enterprise from local system, required  dns entry needs to be added in local host file as following format: 
+To access mattermost-enterprise from local system, required  dns entry needs to be added in local host file as following format:
 
-```
+```text
  127.0.0.1 <mattermost-server-name>
 ```
 
@@ -190,6 +188,7 @@ runnable  nginx/reverse-proxy-ssl-certbot   mattermost-enterprise  1.15-alpine  
 
 ✔ Started mattermost-enterprise/stack
 ```
+
 ## Logs & Shell
 
 ```bash

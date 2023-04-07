@@ -3,6 +3,23 @@ namespace: mattermost-preview
 
 stack:
   defines: process-group
+  metadata:
+    name: mattermost
+    description: |
+      Mattermost is an open-source, self-hosted messaging and collaboration platform that allows teams to communicate and collaborate in real-time. It is similar to other messaging platforms like Slack and Microsoft Teams, but with the added benefit of being self-hosted, giving teams more control over their data and security.
+
+      Mattermost offers a range of features, including group messaging, file sharing, video conferencing, and integrations with other tools like Jira, GitHub, and Trello. It also has a robust notification system that allows users to customize their alerts and stay up-to-date on important conversations.
+
+      One of the key benefits of Mattermost is its flexibility. It can be customized to fit the specific needs of a team or organization, with options for custom branding, integrations, and plugins. It also offers a range of deployment options, including cloud-based, on-premise, and hybrid solutions.
+
+      Overall, Mattermost is a powerful messaging and collaboration tool that can help teams stay connected and productive, while also providing the security and control that many organizations require.
+
+    tags: self hosted, communication, collaboration, workflow orchestration
+    website: https://mattermost.com/
+    source: https://github.com/mattermost/mattermost-server
+    publisher: monk.io
+    icon: https://pbs.twimg.com/profile_images/1524820253938696199/NvcFnuZX_400x400.png
+    version: 1.0
   runnable-list:
     - mattermost-preview/mattermost
     - mattermost-preview/nginx
@@ -10,5 +27,9 @@ stack:
     nginx-listen-port:
       type: int
       value: 80
-    mattermost-image-tag: latest
-    nginx-image-tag: latest
+    mattermost-image-tag:
+      type: string
+      value: latest
+    nginx-image-tag:
+      type: string
+      value: latest

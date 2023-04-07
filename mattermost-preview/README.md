@@ -6,7 +6,7 @@ This template includes Nginx as a reverse proxy to work with  Mattermost-preview
 
 ## Start
 
-Set up Monk - https://docs.monk.io/docs/monk-in-10/
+Set up Monk - [https://docs.monk.io/docs/monk-in-10/](https://docs.monk.io/docs/monk-in-10/)
 
 Start `monkd` and login.
 
@@ -16,14 +16,14 @@ monk login --email=<email> --password=<password>
 
 ## Clone Monk Mattermost-preview repository
 
-In order to load templates and change configuration simply use below commands: 
+In order to load templates and change configuration simply use below commands:
+
 ```bash
 git clone https://github.com/monk-io/monk-mattermost.git
 
 # and change directory to the mattermost-preview template folder
 cd mattermost-preview
 ```
-
 
 ## Configuration
 
@@ -43,21 +43,19 @@ variables:
     nginx-image-tag: "latest"
 ```
 
-##  Template variables
+## Template variables
 
-| Variable | Description | Type | Example |
-|----------|-------------|------|---------|
-| **nginx-listen-port** | Configures the ports that the nginx listens on. | int | 8081 |
+| Variable                   | Description                                             | Type   | Example        |
+| -------------------------- | ------------------------------------------------------- | ------ | -------------- |
+| **nginx-listen-port**      | Configures the ports that the nginx listens on.         | int    | 8081           |
 | **mattermost-server-name** | Configure the fqdn that nginx will accept and route to. | string | mm.example.com |
-| **mattermost-image-tag** | Mattermost-preview image version. | string | latest |
-| **nginx-image-tag** | Nginx image version. | string | latest |
-
-
+| **mattermost-image-tag**   | Mattermost-preview image version.                       | string | latest         |
+| **nginx-image-tag**        | Nginx image version.                                    | string | latest         |
 
 ## Local Deployment
 
-First clone the repository and change the current directory to the /mattermost-preview folder and simply run below command after launching `monkd`:
-:
+| First clone the repository and change the current directory to the /mattermost-preview folder and simply run below command after launching `monkd`: |
+| :-------------------------------------------------------------------------------------------------------------------------------------------------: |
 
 ```bash
 ➜  monk load MANIFEST
@@ -89,13 +87,13 @@ runnable  nginx/reverse-proxy-ssl-certbot  mattermost-preview  1.15-alpine  ngin
 ✔ Started mattermost-preview/stack
 ```
 
-This will start the entire mattermost-preview/stack stack with a Nginx reverse proxy. 
+This will start the entire mattermost-preview/stack stack with a Nginx reverse proxy.
 
-To access mattermost-preview from local system, required  dns entry needs to be added in local host file as following format: 
+To access mattermost-preview from local system, required  dns entry needs to be added in local host file as following format:
 
 ```
  127.0.0.1 <mattermost-server-name>
-  ```
+```
 
 ## Cloud Deployment
 
@@ -165,6 +163,7 @@ runnable  nginx/reverse-proxy-ssl-certbot  mattermost-preview  1.15-alpine  ngin
 
 ✔ Started mattermost-preview/stack
 ```
+
 ## Logs & Shell
 
 ```bash
