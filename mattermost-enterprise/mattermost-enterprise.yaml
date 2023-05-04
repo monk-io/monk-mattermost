@@ -3,7 +3,6 @@ namespace: mattermost-enterprise
 
 database:
   defines: runnable
-  inherits: postgresql/db
   metadata:
     private: true
   services:
