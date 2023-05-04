@@ -16,6 +16,7 @@ stack:
     publisher: monk.io
     icon: https://pbs.twimg.com/profile_images/1524820253938696199/NvcFnuZX_400x400.png
     version: 1.0
+    private: false
   runnable-list:
     - mattermost-enterprise/database
     - mattermost-enterprise/mattermost
@@ -43,3 +44,6 @@ stack:
     nginx-image-tag:
       type: string
       value: latest
+    postgres-image-tag:
+      type: string
+      value: 12.2      

@@ -16,17 +16,17 @@ database:
       image-tag: <- `${image_tag}`      
   variables:
     db_username:
-      value: <- `${database-user}`
+      value: <- `${database-user}` default("sonarqube")
       type: string
     postgres_password:
-      value: <- `${database-password}`
+      value: <- `${database-password}` default("password")
       type: string
     db_name:
-      value: <- `${database-name}`
+      value: <- `${database-name}` default("sonarqube")
       type: string
     image_tag:
       type: string
-      value: 12.2      
+      value: <- `${postgres-image-tag}` default("12.2")
 
 nginx:
   defines: runnable
