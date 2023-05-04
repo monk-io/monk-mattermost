@@ -7,13 +7,9 @@ stack:
     name: mattermost
     description: |
       Mattermost is an open-source, self-hosted messaging and collaboration platform that allows teams to communicate and collaborate in real-time. It is similar to other messaging platforms like Slack and Microsoft Teams, but with the added benefit of being self-hosted, giving teams more control over their data and security.
-
       Mattermost offers a range of features, including group messaging, file sharing, video conferencing, and integrations with other tools like Jira, GitHub, and Trello. It also has a robust notification system that allows users to customize their alerts and stay up-to-date on important conversations.
-
       One of the key benefits of Mattermost is its flexibility. It can be customized to fit the specific needs of a team or organization, with options for custom branding, integrations, and plugins. It also offers a range of deployment options, including cloud-based, on-premise, and hybrid solutions.
-
       Overall, Mattermost is a powerful messaging and collaboration tool that can help teams stay connected and productive, while also providing the security and control that many organizations require.
-
     tags: self hosted, communication, collaboration, workflow orchestration
     website: https://mattermost.com/
     source: https://github.com/mattermost/mattermost-server
