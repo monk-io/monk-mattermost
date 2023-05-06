@@ -14,15 +14,20 @@ database:
     postgres:
       image: postgres
       image-tag: <- `${image_tag}`      
+      paths:
+        - <- `${monk-volume-path}/postgresql:/var/lib/postgresql/data`      
   variables:
     db_username:
-      value: <- `${database-user}` default("sonarqube")
+      env: POSTGRES_USER
+      value: <- `${database-user}` default("mattermost")
       type: string
-    postgres_password:
+    db_password:
+      env: POSTGRES_PASSWORD
       value: <- `${database-password}` default("password")
       type: string
     db_name:
-      value: <- `${database-name}` default("sonarqube")
+      env: POSTGRES_DB
+      value: <- `${database-name}` default("mattermost")
       type: string
     image_tag:
       type: string
@@ -152,16 +157,16 @@ mattermost:
     MM_SQLSETTINGS_DATASOURCE:
       env: MM_SQLSETTINGS_DATASOURCE
       type: string
-      value: <- `postgres://${db-user}:${db-password}@${db-host}:5432/${db-name}?sslmode=disable&connect_timeout=10`
-    db-user:
+      value: <- `postgres://${db_username}:${db_password}@${db_host}:5432/${db_name}?sslmode=disable&connect_timeout=10`
+    db_username:
+      value: <- `${database-user}` default("mattermost")
       type: string
-      value: <- `${database-user}`
-    db-password:
+    db_password:
+      value: <- `${database-password}` default("password")
       type: string
-      value: <- `${database-password}`
-    db-name:
+    db_name:
+      value: <- `${database-name}` default("mattermost")
       type: string
-      value: <- `${database-name}`
     MATTERMOST_CONFIG_PATH:
       type: string
       value: config
@@ -183,6 +188,6 @@ mattermost:
     MATTERMOST_IMAGE:
       type: string
       value: <- `${mattermost-image-tag}` default("latest")
-    db-host:
+    db_host:
       type: string
       value: <- connection-hostname("postgres")
