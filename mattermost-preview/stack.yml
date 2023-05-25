@@ -14,7 +14,7 @@ stack:
 
       Overall, Mattermost is a powerful messaging and collaboration tool that can help teams stay connected and productive, while also providing the security and control that many organizations require.
 
-    tags: self hosted, communication, collaboration, workflow orchestration
+    tags: self hosted, communication, workflow orchestration, collaboration
     website: https://mattermost.com/
     source: https://github.com/mattermost/mattermost-server
     publisher: monk.io

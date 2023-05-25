@@ -10,7 +10,7 @@ mattermost:
       Mattermost offers a range of features, including group messaging, file sharing, video conferencing, and integrations with other tools like Jira, GitHub, and Trello. It also has a robust notification system that allows users to customize their alerts and stay up-to-date on important conversations.
       One of the key benefits of Mattermost is its flexibility. It can be customized to fit the specific needs of a team or organization, with options for custom branding, integrations, and plugins. It also offers a range of deployment options, including cloud-based, on-premise, and hybrid solutions.
       Overall, Mattermost is a powerful messaging and collaboration tool that can help teams stay connected and productive, while also providing the security and control that many organizations require.
-    tags: self hosted, communication, collaboration, workflow orchestration
+    tags: self hosted, communication, workflow orchestration, collaboration
     website: https://mattermost.com/
     source: https://github.com/mattermost/mattermost-server
     publisher: monk.io
@@ -41,7 +41,7 @@ nginx:
   metadata:
     publisher: monk.io
     email: jakub@monk.io
-    tags: nginx, webserver, ssl, certbot
+    tags: ssl, certbot, webserver, nginx
     icon: https://assets.monk.io/icons/nginx-logo-FF65602A76-seeklogo.com.png
     description: Standard webserver with a certbot container as sidecar to generate letsencrypt certificate
     name: NGINX Server with Certbot
