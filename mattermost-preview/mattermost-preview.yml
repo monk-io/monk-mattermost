@@ -25,7 +25,7 @@ mattermost:
   containers:
     mattermost:
       image: docker.io/mattermost/mattermost-preview
-      image-tag: <- `${mattermost-preview-image-tag}`
+      image-tag: <- $mattermost-preview-image-tag
       paths:
         - <- `${monk-volume-path}/mattermost/${MATTERMOST_DATA_PATH}:/mm/mattermost-data`
   variables:
@@ -56,9 +56,9 @@ nginx:
   services:
     nginx:
       container: nginx-reverse-proxy
-      port: <- `${listen-port}`
+      port: <- $listen-port
       protocol: tcp
-      host-port: <- `${listen-port}`
+      host-port: <- $listen-port
   connections:
     mattermost:
       runnable: mattermost-preview/mattermost
