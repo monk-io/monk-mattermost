@@ -1,0 +1,221 @@
+---
+title: Mattermost
+description: Ready-to-run Mattermost container stack you can run directly or inherit to integrate a team collaboration platform into your infrastructure.
+primary_category: communication
+tags: [mattermost, chat, collaboration, template, runnable, stack, messaging, team]
+integration_type: template
+hosting_models: [self-hosted]
+website_url: https://mattermost.com/
+docs_url: https://docs.mattermost.com/
+publisher: monk.io
+---
+
+## Overview
+
+This template provides a production‑ready Mattermost stack as a Monk runnable. You can:
+
+- Run it directly to get a managed Mattermost deployment with PostgreSQL
+- Inherit it in your own runnable to seamlessly add team collaboration and messaging to your infrastructure
+
+Mattermost is an open-source, self-hostable online chat service with file sharing, search, and integrations. It is designed as an internal chat for organizations and companies, similar to Slack and Microsoft Teams, but with the added benefit of being self-hosted, giving teams more control over their data and security.
+
+## What this template manages
+
+- Mattermost server (Enterprise or Preview edition)
+- PostgreSQL database (enterprise stack)
+- NGINX reverse proxy
+- Persistent volumes for data, config, logs, and plugins
+- Network configuration and service discovery
+
+## Quick start (run directly)
+
+1) Load templates
+
+```bash
+monk load MANIFEST
+```
+
+2) Run Mattermost enterprise stack
+
+```bash
+monk run mattermost-enterprise/stack
+```
+
+3) Run Mattermost preview stack (for testing)
+
+```bash
+monk run mattermost-preview/stack
+```
+
+4) Customize credentials (recommended via inheritance)
+
+Running directly uses the defaults defined in this template's `variables`. Secrets added with `monk secrets add` will not affect this runnable unless you inherit it and reference those secrets.
+
+- Preferred: inherit and replace variables with `secret("...")` as shown below.
+- Alternative: fork/clone and edit the `variables` in the stack files, then `monk load MANIFEST` and run.
+
+Once started, access Mattermost at `http://localhost:80` (or the configured `nginx-listen-port`).
+
+## Configuration
+
+### Enterprise Stack Variables
+
+Key variables you can customize in the enterprise stack:
+
+```yaml
+variables:
+  database-user: "mattermost"              # PostgreSQL user
+  database-password: "password"            # PostgreSQL password (change in production!)
+  database-name: "mattermost"              # PostgreSQL database name
+  mattermost-image-tag: "latest"           # Mattermost image tag
+  postgres-image-tag: "12.2"               # PostgreSQL image tag
+  nginx-listen-port: 80                    # NGINX listening port
+  nginx-image-tag: "latest"                # NGINX image tag
+  TZ: "UTC"                                # Timezone
+```
+
+### Preview Stack Variables
+
+The preview stack uses a simpler all-in-one configuration:
+
+```yaml
+variables:
+  mattermost-image-tag: "latest"           # Mattermost preview image tag
+  nginx-listen-port: 80                    # NGINX listening port
+  nginx-image-tag: "latest"                # NGINX image tag
+```
+
+Data is persisted under `${monk-volume-path}/mattermost/` on the host with subdirectories for:
+- `config/` - Mattermost configuration files
+- `data/` - User data and file uploads
+- `logs/` - Application logs
+- `plugins/` - Installed plugins
+- `client/plugins/` - Client-side plugins
+- `bleve-indexes/` - Search indexes
+
+PostgreSQL data is stored in `${monk-volume-path}/postgresql/`.
+
+## Use by inheritance (recommended for apps)
+
+Inherit the Mattermost stack in your application to add team collaboration. Example:
+
+```yaml
+namespace: myapp
+collaboration:
+  defines: process-group
+  runnable-list:
+    - myapp/mattermost-db
+    - myapp/mattermost-server
+    - myapp/api
+
+mattermost-db:
+  defines: runnable
+  inherits: mattermost-enterprise/database
+  variables:
+    database-user:
+      value: <- secret("mattermost-db-user")
+    database-password:
+      value: <- secret("mattermost-db-password")
+    database-name:
+      value: <- secret("mattermost-db-name")
+
+mattermost-server:
+  defines: runnable
+  inherits: mattermost-enterprise/mattermost
+  connections:
+    postgres:
+      runnable: myapp/mattermost-db
+      service: postgres
+  variables:
+    database-user:
+      value: <- secret("mattermost-db-user")
+    database-password:
+      value: <- secret("mattermost-db-password")
+    database-name:
+      value: <- secret("mattermost-db-name")
+
+api:
+  defines: runnable
+  containers:
+    api:
+      image: myorg/api
+  # Your application can integrate with Mattermost via webhooks/API
+```
+
+Then set the secrets once and run your app group:
+
+```bash
+monk secrets add -g mattermost-db-user="mattermost"
+monk secrets add -g mattermost-db-password="STRONG_PASSWORD"
+monk secrets add -g mattermost-db-name="mattermost"
+monk run myapp/collaboration
+```
+
+## Ports and connectivity
+
+- Service: `nginx` on TCP port `80` (default, configurable via `nginx-listen-port`)
+- Internal: `mattermost` service on TCP port `8065`
+- Internal: `postgres` service on TCP port `5432` (enterprise only)
+- From other runnables in the same process group, use `connection-hostname("<connection-name>")` to resolve service hosts.
+
+## Persistence and configuration
+
+### Mattermost Data Paths
+
+- Config: `${monk-volume-path}/mattermost/config:/var/lib/mattermost/config`
+- Data: `${monk-volume-path}/mattermost/data:/var/lib/mattermost/data`
+- Logs: `${monk-volume-path}/mattermost/logs:/var/lib/mattermost/logs`
+- Plugins: `${monk-volume-path}/mattermost/plugins:/var/lib/mattermost/plugins`
+- Client Plugins: `${monk-volume-path}/mattermost/client/plugins:/var/lib/mattermost/client/plugins`
+- Search Indexes: `${monk-volume-path}/mattermost/bleve-indexes:/var/lib/mattermost/bleve-indexes`
+
+### Database Persistence (Enterprise)
+
+- PostgreSQL data: `${monk-volume-path}/postgresql:/var/lib/postgresql/data`
+
+### Configuration Files
+
+You can customize Mattermost by placing configuration files in the config directory. The application reads from `/var/lib/mattermost/config` which is mounted from your host.
+
+## Features
+
+- **Team messaging and collaboration** - Real-time chat, threads, and direct messages
+- **File sharing and search** - Share files, images, and search message history
+- **Voice calls and screen sharing** - Built-in audio/video conferencing
+- **Integrations and webhooks** - Connect with Jira, GitHub, Trello, and more
+- **Mobile and desktop apps** - Native applications for all platforms
+- **Custom emoji and GIFs** - Personalize your team's communication
+- **Flexible deployment** - Self-hosted with full control over data and security
+- **Enterprise features** - Advanced compliance, authentication, and management tools
+
+## Related templates
+
+- High-availability setup: Deploy multiple Mattermost instances behind a load balancer for production scale
+- Database alternatives: The enterprise stack can be adapted to use other PostgreSQL-compatible databases
+- Monitoring: Combine with monitoring tools (`prometheus-grafana/`) for observability
+- Integrate with your application stack as needed
+
+## Troubleshooting
+
+- **Database connection issues**: Ensure PostgreSQL is running and credentials match between the database and Mattermost server variables.
+- **Permission issues**: Ensure host volumes are writable by the container user (UID 2000 for Mattermost).
+- **Changed passwords**: If you change database credentials after initial setup, update both the database and the Mattermost server configuration.
+- **Port conflicts**: If port 80 is already in use, change `nginx-listen-port` to an available port.
+
+Check logs:
+
+```bash
+# View all stack logs
+monk logs -l 500 -f mattermost-enterprise/stack
+
+# View specific service logs
+monk logs -l 500 -f mattermost-enterprise/mattermost
+monk logs -l 500 -f mattermost-enterprise/database
+monk logs -l 500 -f mattermost-enterprise/nginx
+```
+
+For the preview stack:
+
+```bash
+monk logs -l 500 -f mattermost-preview/stack
+```
